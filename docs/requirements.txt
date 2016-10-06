@@ -1,0 +1,3 @@
+sphinx-better-theme
+django
+-r ../test_ddf_project/requirements.txt
