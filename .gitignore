@@ -1,0 +1,20 @@
+*pyc
+docs/build
+docs/source/_static
+test_ddf_project/htmlcov/
+test_ddf_project/.coverage
+build
+dist
+ddf.egg-info/
+*swp
+docs/docs
+__pycache__
+*.mo
+test_env/
+.coverage
+.tox
+
+.cache/
+
+# Pycharm
+.idea/

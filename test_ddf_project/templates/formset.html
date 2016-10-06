@@ -1,0 +1,26 @@
+{% extends 'form.html' %}
+
+{% block form %}
+    <h2>{{ view.kwargs.app }} formset example</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.management_form }}
+        <table>
+        {% for f in form %}
+            {{ f }}
+        {% endfor %}
+        </table>
+        <input type="submit">
+    </form>
+{% endblock %}
+
+{% block also %}
+<h2>Also check</h2>
+<p>
+    <ul>
+        <li>
+            <a href="{% url 'form' view.kwargs.app %}">form version</a>
+        </li>
+    </ul>
+</p>
+{% endblock %}
