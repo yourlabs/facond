@@ -7,8 +7,8 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name='ddf',
-    version='0.0.0',
+    name='django-dynamic-fields',
+    version='0.1.0',
     description='Dynamic forms for Django',
     author='James Pic',
     author_email='jpic@yourlabs.org',

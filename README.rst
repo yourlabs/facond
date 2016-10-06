@@ -66,8 +66,8 @@ Dual-license
 ============
 
 It is released with the Creative Commons Attribution-NonCommercial 3.0 Unported
-License, but a commercial license is available, please get in touch jpic @
-this-github-org-name .org if you are interrested.
+License, but a commercial license is available, please get in touch with the
+author by email (see setup.py) if you are interrested.
 
 Note that the money goes to YourLabs, a non-profit foundation to promote the
 role of hackers in the process of making our society more fair and free, while
