@@ -1,5 +1,18 @@
+.. image:: https://img.shields.io/pypi/dm/django-dynamic-fields.svg
+   :target: https://pypi.python.org/pypi/django-dynamic-fields
+.. image:: https://secure.travis-ci.org/yourlabs/django-dynamic-fields.png?branch=master
+    :target: http://travis-ci.org/yourlabs/django-dynamic-fields
+.. image:: https://codecov.io/github/yourlabs/django-dynamic-fields/coverage.svg?branch=master
+    :target: https://codecov.io/github/yourlabs/django-dynamic-fields?branch=master
+
 This app provides features a form class dynamic, both on the client and server
-side, properly.
+side. For example if you want a field to be remove if another field has a
+particular value or to filter choices based on a set conditions. The `demo
+<https://ddf-yourlabs.rhcloud.com>`_ is automatically updated when a commit is
+`tested
+<https://travis-ci.org/yourlabs/django-dynamic-fields>`_ on master.
+
+Pypy, Python 2.7, 3.4, Django 1.8+ are supported.
 
 Example
 =======
@@ -23,7 +36,7 @@ selected:
 
         # Remove the 'Support' choice from the 'service' field if 'platform'
         # value is 'Windows':
-        ddf = ddf.Field(
+        _ddf = dict(
             service=[
                 ddf.RemoveChoices(
                     ['Support'],

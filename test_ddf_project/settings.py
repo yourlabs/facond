@@ -177,7 +177,7 @@ LOGGING = {
             'level': LOG_LEVEL,
             'class': 'logging.FileHandler',
             'filename': os.path.join(
-                os.environ.get('OPENSHIFT_LOG_DIR'),
+                os.environ.get('OPENSHIFT_LOG_DIR', '.'),
                 'django.log',
             )
         },
