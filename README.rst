@@ -30,10 +30,11 @@ selected:
     class TestForm(ddf.FormMixin, forms.Form):
         platform = forms.ChoiceField(choices=(
             ('Linux', 'Linux'),
+            ('BSD', 'BSD'),
             ('Windows', 'Windows'),
         ))
         service = forms.ChoiceField(choices=(
-            ('Format', 'Format'),
+            ('Setup', 'Setup'),
             ('Support', 'Support')
         ))
 
@@ -41,16 +42,21 @@ selected:
         # value is 'Windows':
         _ddf = dict(
             service=[
-                ddf.RemoveChoices(
-                    ['Support'],
+                ddf.Remove(
+                    # Completely remove the service field for windows
                     ddf.ValueIs('platform', 'Windows'),
+                ),
+                ddf.RemoveChoices(
+                    # Remove the Support choice if platform is BSD
+                    ['Support'],
+                    ddf.ValueIs('platform', 'BSD'),
                 )
             ]
         )
 
-In this example, we create a configuration field and add the RemoveChoices
-action to the service field, with the condition that the platform field value
-is Windows.
+This example will cause the "service" field to be removed when the user selects
+platform=Windows. If the user selects BSD, then it will just remove the Support
+choice from the service field.
 
 The configuration field is able to render the configuration as a JSON dict,
 with the form prefix it's being rendered with. Then, the equivalent of each
