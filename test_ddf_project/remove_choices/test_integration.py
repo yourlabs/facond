@@ -1,6 +1,6 @@
 from django import forms
 
-from forms import TestForm
+from .forms import TestForm
 
 import pytest
 

@@ -1,4 +1,4 @@
-from forms import TestForm
+from .forms import TestForm
 
 
 def test_removes_field():
