@@ -4,6 +4,9 @@
     :target: http://travis-ci.org/yourlabs/django-dynamic-fields
 .. image:: https://codecov.io/github/yourlabs/django-dynamic-fields/coverage.svg?branch=master
     :target: https://codecov.io/github/yourlabs/django-dynamic-fields?branch=master
+.. image:: https://readthedocs.org/projects/django-dynamic-fields/badge/?version=develop
+    :target: http://django-dynamic-fields.readthedocs.io/en/develop/?badge=develop
+    :alt: Documentation status
 
 This app provides features a form class dynamic, both on the client and server
 side. For example if you want a field to be remove if another field has a
