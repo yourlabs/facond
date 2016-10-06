@@ -22,11 +22,44 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '_2om-qmv@%*c1)d+@vk81=gyap9%dy($-(i6ne@yg+thq(ib_c'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
+LOG_LEVEL = os.environ.get('DJANGO_LOG_LEVEL', 'INFO')
 
-ALLOWED_HOSTS = []
+PUBLIC_DIR = os.path.join(os.environ.get('OPENSHIFT_REPO_DIR', ''), 'wsgi/static')
 
+DATA_DIR = os.environ.get('OPENSHIFT_DATA_DIR', 'data')
+if not os.path.exists(DATA_DIR):
+    os.makedirs(DATA_DIR)
+
+LOG_DIR = os.environ.get('OPENSHIFT_LOG_DIR', 'log')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+
+def get_databases(base_dir):
+    return {
+        'default': {
+            'ENGINE': os.environ.get('DJANGO_DB_ENGINE',
+                'django.db.backends.sqlite3'),
+            'NAME': os.environ.get('DJANGO_DB_NAME',
+                os.path.join(base_dir, 'db.sqlite3')),
+            'USER': os.environ.get('DJANGO_DB_USER', ''),
+        }
+    }
+DATABASES = get_databases(BASE_DIR)
+
+if 'OPENSHIFT_POSTGRESQL_DB_HOST' in os.environ:
+    DATABASES['default']['NAME'] = os.environ['OPENSHIFT_APP_NAME']
+    DATABASES['default']['USER'] = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
+    DATABASES['default']['PASSWORD'] = os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
+    DATABASES['default']['HOST'] = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
+    DATABASES['default']['PORT'] = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+
+ALLOWED_HOSTS = ['*']
+
+AUTH_PASSWORD_VALIDATORS = []
 
 # Application definition
 
@@ -105,5 +138,70 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
+STATIC_URL = '/public/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'public', 'static')
 
-STATIC_URL = '/static/'
+if DATA_DIR:
+    MEDIA_URL = '/static/media/'
+    MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
+
+if PUBLIC_DIR:
+    STATIC_URL = '/static/collected/'
+    STATIC_ROOT = os.path.join(PUBLIC_DIR, 'collected')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s[%(module)s]: %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': LOG_LEVEL,
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        'memopol': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+        },
+        'representatives': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+        },
+        'representatives_positions': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL
+        },
+        'representatives_recommendations': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL
+        },
+        'representatives_votes': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+        }
+    },
+}
+
+RAVEN_FILE = os.path.join(DATA_DIR, 'sentry')
+
+if os.path.exists(RAVEN_FILE):
+    INSTALLED_APPS += ('raven.contrib.django.raven_compat',)
+
+    LOGGING['handlers']['sentry'] = {
+        'level': 'INFO',
+        'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+    }
+    LOGGING['loggers']['sentry.errors'] = LOGGING['loggers']['raven'] = {
+        'level': 'INFO',
+        'handlers': ['console'],
+        'propagate': False,
+    }
+
+    with open(RAVEN_FILE, 'r') as f:
+        RAVEN_CONFIG = {'dsn': f.read().strip()}
