@@ -1,6 +1,5 @@
 from .base import DictMixin
 from .action import Action
-from .constraint import Constraint
 
 
 class Rule(DictMixin):
