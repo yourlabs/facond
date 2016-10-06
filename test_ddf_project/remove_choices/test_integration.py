@@ -1,8 +1,8 @@
 from django import forms
 
-from .forms import TestForm
-
 import pytest
+
+from .forms import TestForm
 
 
 def test_invalidates_choices():
