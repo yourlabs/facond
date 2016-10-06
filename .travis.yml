@@ -1,0 +1,55 @@
+sudo: false
+language: python
+python:
+- '3.4'
+env:
+  global:
+  - PIP_RETRIES=10
+  - PIP_TIMEOUT=30
+  matrix:
+  - TOXENV=checkqa
+  - TOXENV=docs
+  - TOXENV=py27-django18
+  - TOXENV=py27-django19
+  - TOXENV=py27-django110
+  - TOXENV=py34-django18
+  - TOXENV=py34-django19
+  - TOXENV=py34-django110
+  - TOXENV=pypy-django18
+  - TOXENV=pypy-django19
+  - TOXENV=pypy-django110
+install:
+- travis_retry pip install -U pip
+- travis_retry pip install tox
+- travis_retry pip freeze
+before_script:
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
+script:
+- travis_retry tox
+- test -d .tox/$TOXENV/log && cat .tox/$TOXENV/log/*.log || true
+after_success:
+- travis_retry pip install codecov
+- cd test_project && codecov
+notifications:
+  irc:
+    channels:
+    - irc.freenode.org#yourlabs
+    template:
+    - "%{repository} (%{commit} %{author}) : %{message} %{build_url} %{compare_url}"
+cache:
+  directories:
+  - ".tox/$TOXENV"
+  - "$HOME/.cache/pip"
+deploy:
+  provider: openshift
+  user: jpic@yourlabs.org
+  password:
+    secure: K93UNetE6IojUrUdbOKrpqzkAyLQvgkwi2vFhfLR8bTSCaxR+pFB+FolflIztQXnF1QgEWbOzrZLgMFpObu5vPkm/MRRvo41Sc/OvyuokTwn1O3sDS8fXeiEF8jQgDHD0PEdXF73FnBu+r7pOaiJ9nrV86mEdGvBHg/owXPwIUrTuHh4fx8ggtkOZGmq04ne2uF7NVYJMdQcfCBjyp5Vpup89nJCOLiCTXmPa1PPvIyyz0zCXeczyxoboepFbN0uh3YTp54PS7SQBeoWYA/fqjFrxRKYGpEcly23F752mGNaR+4qE0P4un8lOWr0bLAjYgpwd/zdzVv8t3MdEA4X6iX67ws6SD/Mu09BPvkD1189m1TbVKnAhxVOrGNYqANnHgm+rKooNx2XxlddlD1AV5XoJvkEFwhbICyxP7/uixZT7j9cszrmYJlcDsnYWQe8bF65XB6xe4wE9Y7ATofb7PzesL3xXEj6+Qkza0ESaLhuN7ToywT6YlEJlbtMvOQpM45UkcBQzlxIpIkSbdvwjgkBRxilytcfPRn/y2+rHt/fY+8Of/PbY0FPJjzTiwzs/ABcDomAQKR0VTQoT1Udz9C2e8+iFxDpWpF8vpptue/VMJM9JM2GTWseBPcaD2wvBtKJ1fNF1uOqLT6rDgLmwv0ULTEaRTQHRRP102KdL3Y=
+  app: ddf
+  domain: yourlabs
+  deployment_branch: master
+  on:
+    repo: yourlabs/django-dynamic-fields
+    branch: master
