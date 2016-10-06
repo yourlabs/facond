@@ -25,7 +25,10 @@ SECRET_KEY = '_2om-qmv@%*c1)d+@vk81=gyap9%dy($-(i6ne@yg+thq(ib_c'
 DEBUG = os.environ.get('DEBUG', False)
 LOG_LEVEL = os.environ.get('DJANGO_LOG_LEVEL', 'INFO')
 
-PUBLIC_DIR = os.path.join(os.environ.get('OPENSHIFT_REPO_DIR', ''), 'wsgi/static')
+PUBLIC_DIR = os.path.join(
+    os.environ.get('OPENSHIFT_REPO_DIR', ''),
+    'wsgi/static'
+)
 
 DATA_DIR = os.environ.get('OPENSHIFT_DATA_DIR', 'data')
 if not os.path.exists(DATA_DIR):
@@ -37,13 +40,18 @@ if not os.path.exists(LOG_DIR):
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
+
 def get_databases(base_dir):
     return {
         'default': {
-            'ENGINE': os.environ.get('DJANGO_DB_ENGINE',
-                'django.db.backends.sqlite3'),
-            'NAME': os.environ.get('DJANGO_DB_NAME',
-                os.path.join(base_dir, 'db.sqlite3')),
+            'ENGINE': os.environ.get(
+                'DJANGO_DB_ENGINE',
+                'django.db.backends.sqlite3'
+            ),
+            'NAME': os.environ.get(
+                'DJANGO_DB_NAME',
+                os.path.join(base_dir, 'db.sqlite3')
+            ),
             'USER': os.environ.get('DJANGO_DB_USER', ''),
         }
     }
@@ -51,8 +59,10 @@ DATABASES = get_databases(BASE_DIR)
 
 if 'OPENSHIFT_POSTGRESQL_DB_HOST' in os.environ:
     DATABASES['default']['NAME'] = os.environ['OPENSHIFT_APP_NAME']
-    DATABASES['default']['USER'] = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
-    DATABASES['default']['PASSWORD'] = os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
+    DATABASES['default']['USER'] = \
+        os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
+    DATABASES['default']['PASSWORD'] = \
+        os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
     DATABASES['default']['HOST'] = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
     DATABASES['default']['PORT'] = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'

@@ -1,7 +1,3 @@
-import pytest
-
-from django import forms
-
 from forms import TestForm
 
 

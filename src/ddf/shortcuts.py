@@ -1,3 +1,5 @@
+"""Shortcuts, use: `from ddf import shortcuts as ddf` to feel awesome."""
+
 from .action import (
     Action,
     Remove,

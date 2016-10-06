@@ -1,8 +1,6 @@
 import os
 
-from django import forms
 from django.conf import settings
-from django.conf.urls import url
 from django.forms import formset_factory
 from django.utils.module_loading import import_string
 from django.views import generic
@@ -22,7 +20,10 @@ class FormSetView(FormView):
     template_name = 'formset.html'
 
     def get_form_class(self):
-        return formset_factory(super(FormSetView, self).get_form_class(), extra=2)
+        return formset_factory(
+            super(FormSetView, self).get_form_class(),
+            extra=2
+        )
 
 
 class HomeView(generic.TemplateView):

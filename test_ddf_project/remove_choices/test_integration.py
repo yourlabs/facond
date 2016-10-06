@@ -1,8 +1,8 @@
-import pytest
-
 from django import forms
 
 from forms import TestForm
+
+import pytest
 
 
 def test_invalidates_choices():

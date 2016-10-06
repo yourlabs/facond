@@ -1,6 +1,6 @@
-from django import forms
-
 from ddf import shortcuts as ddf
+
+from django import forms
 
 
 class TestForm(ddf.FormMixin, forms.Form):
