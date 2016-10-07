@@ -4,7 +4,18 @@
    contain the root `toctree` directive.
 
 Welcome to django-dynamic-fields documentation!
-=================================================
+===============================================
+
+Toc
+---
+
+.. toctree::
+   :maxdepth: 2
+
+   design
+
+Readme
+------
 
 .. include:: ../README.rst
 
