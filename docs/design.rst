@@ -17,12 +17,14 @@ server, we don't need to un-apply actions, because data is completely out of
 the hands of user at this point.
 
 Form
-    Form objects contain the list of rules for each field, it's responsible
-    for executing them.
+    Form objects contain the list of Rules, one per field, it's responsible for
+    executing them. In Python it's represented by the FormMixin which should
+    work on any Form class.
 
 Rule
     Rule objects contain all the Actions for one field, and is responsible for
-    executing them.
+    executing them. We could have named this Field too, but it would have been
+    confusing with actual form Field objects.
 
 Action
     An action may change user data or even the form definition, but it also
