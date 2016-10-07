@@ -38,17 +38,18 @@ selected:
             ('Support', 'Support')
         ))
 
-        # Remove the 'Support' choice from the 'service' field if 'platform'
-        # value is 'Windows':
         _ddf = dict(
+            # List of Actions to execute on the service field
             service=[
+                # Remove the service field
                 ddf.Remove(
-                    # Completely remove the service field for windows
+                    # If platform field is Windows
                     ddf.ValueIs('platform', 'Windows'),
                 ),
+                # Remove a list of choices from the service field
                 ddf.RemoveChoices(
-                    # Remove the Support choice if platform is BSD
-                    ['Support'],
+                    ['Support'], # That's the list of choices to remove
+                    # If platform field value is Windows
                     ddf.ValueIs('platform', 'BSD'),
                 )
             ]
