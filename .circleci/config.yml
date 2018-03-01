@@ -66,7 +66,7 @@ jobs:
           - ./node_modules
     - run:
         name: RUN yarn run lint
-        command: yarn run lint
+        command: ./node_modules/.bin/yarn run lint
 
   js-test:
     docker:
