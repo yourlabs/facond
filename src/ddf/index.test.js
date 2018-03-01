@@ -4,25 +4,25 @@ import * as ddf from './index'
 import * as form from './form'
 
 const formFixture = {
-  "cls": "ddf.form.Form",
-  "prefix": null,
-  "rules": [
+  'cls': 'ddf.form.Form',
+  'prefix': null,
+  'rules': [
     {
-	  "cls": "ddf.rule.Rule",
-	  "field": "title",
- 	  "actions": [
+	  'cls': 'ddf.rule.Rule',
+	  'field': 'title',
+ 	  'actions': [
 	    {
-		  "cls": "ddf.action.Remove",
-		  "conditions": [
-			{
-			  "cls": "ddf.condition.ValueIs",
-			  "field": "kind",
-			  "value": "nonprofit"
-			}
+		  'cls': 'ddf.action.Remove',
+		  'conditions': [
+            {
+			  'cls': 'ddf.condition.ValueIs',
+			  'field': 'kind',
+			  'value': 'nonprofit'
+            }
 		  ]
-		}
+        }
 	  ]
-	}
+    }
   ]
 }
 
