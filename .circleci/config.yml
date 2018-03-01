@@ -52,6 +52,7 @@ jobs:
   js-qa:
     docker:
     - image: circleci/node:8
+    working_directory: ~/repo/src/ddf
     steps:
     - checkout
     - restore_cache:
@@ -70,6 +71,7 @@ jobs:
   js-test:
     docker:
     - image: circleci/node:8
+    working_directory: ~/repo/src/ddf
     steps:
     - checkout
     - restore_cache:
