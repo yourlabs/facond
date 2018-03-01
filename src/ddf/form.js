@@ -1,6 +1,5 @@
 class Form {
-  constructor(form, rules, prefix) {
-    this.form = form
+  constructor(rules, prefix) {
     this.rules = rules
     this.prefix = prefix
   }

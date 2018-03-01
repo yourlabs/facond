@@ -8,28 +8,6 @@ import debug from 'debug'
 
 var log = debug('ddf')
 
-function instanciate(attrs) {
-  let cls = ddf.getClass(attrs.cls)
-  let obj = new cls()
-
-  for (let key in attrs) {
-    let value = attrs[key]
-
-    if (attrs[key] === undefined || attrs[key] === null) {
-      obj[key] = value
-    } else if (value instanceof Array && value.length && value[0].cls !== undefined) {
-      obj[key] = value.map(ddf.instanciate)
-    } else if (attrs[key].cls !== undefined) {
-      obj[key] = ddf.instanciate(attrs)
-    } else {
-      obj[key] = value
-    }
-  }
-
-  log('Instanciated', obj)
-  return obj
-}
-
 function getClass(name) {
   log('getClass(%s)', name)
 
@@ -42,8 +20,32 @@ function getClass(name) {
   let classname = parts[2]
   var tmp = require(path)
   let cls = tmp[classname]
+  log('getClass(%s) = %s', name, cls)
 
   return cls
+}
+
+function instanciate(attrs) {
+  let cls = getClass(attrs.cls)
+  log(cls)
+  let obj = new cls()
+
+  for (let key in attrs) {
+    let value = attrs[key]
+
+    if (attrs[key] === undefined || attrs[key] === null) {
+      obj[key] = value
+    } else if (value instanceof Array && value.length && value[0].cls !== undefined) {
+      obj[key] = value.map(instanciate)
+    } else if (attrs[key].cls !== undefined) {
+      obj[key] = instanciate(attrs)
+    } else {
+      obj[key] = value
+    }
+  }
+
+  log('Instanciated', obj)
+  return obj
 }
 
 $(document).ready(function() {
