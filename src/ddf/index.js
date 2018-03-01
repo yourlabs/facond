@@ -1,4 +1,4 @@
-import './actions' as actions
+import { actions } from './actions'
 
 export default {
   ddf: {
