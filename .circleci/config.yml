@@ -55,12 +55,12 @@ jobs:
     steps:
     - checkout
     - restore_cache:
-        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
     - run:
         name: RUN yarn install
         command: npm install yarn; ./node_modules/.bin/yarn install
     - save_cache:
-        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
         paths:
           - ./node_modules
     - run:
@@ -73,12 +73,12 @@ jobs:
     steps:
     - checkout
     - restore_cache:
-        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
     - run:
         name: RUN yarn install
         command: npm install yarn; ./node_modules/.bin/yarn install
     - save_cache:
-        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
         paths:
           - ./node_modules
     - run:
