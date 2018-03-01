@@ -9,7 +9,7 @@ class Action(DictMixin):
     """An action to take on a list of fields."""
 
     def __init__(self, *conditions):
-        """An action takes a list of condition to require."""
+        """Instanciate with a list of condition to require."""
         self.conditions = conditions
 
     def execute(self, form, field):

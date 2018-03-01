@@ -55,6 +55,8 @@ def get_databases(base_dir):
             'USER': os.environ.get('DJANGO_DB_USER', ''),
         }
     }
+
+
 DATABASES = get_databases(BASE_DIR)
 
 if 'OPENSHIFT_POSTGRESQL_DB_HOST' in os.environ:
