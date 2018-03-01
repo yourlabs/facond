@@ -1,6 +1,7 @@
 /* global describe, jest, test, expect */
 
-import { ddf } from './index'
+import * as ddf from './index'
+import * as form from './form'
 
 const formFixture = {
   "cls": "ddf.form.Form",
@@ -8,7 +9,7 @@ const formFixture = {
   "rules": [
     {
 	  "cls": "ddf.rule.Rule",
-	  "field": "title"
+	  "field": "title",
  	  "actions": [
 	    {
 		  "cls": "ddf.action.Remove",
@@ -25,8 +26,9 @@ const formFixture = {
   ]
 }
 
-describe('instanciate formFixture', () => {
-  test('showSubmitLoading', () => {
-    const submitUi = submitUiFactory()
+describe('getClass', () => {
+  test('should instanciate Form from actions', () => {
+    let result = ddf.getClass('ddf.form.Form')
+  	expect(result).toBe(Form)
   })
 })
