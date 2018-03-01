@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'ddf',
+    'webpack_loader',
 
     'remove_fields',
     'remove_choices',
@@ -148,12 +149,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-STATIC_URL = '/public/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'public', 'static')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+if os.path.exists(STATIC_DIR):
+    STATICFILES_DIRS = [STATIC_DIR]
 
 if DATA_DIR:
-    MEDIA_URL = '/static/media/'
-    MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
+    MEDIA_URL = '/uploads/'
+    MEDIA_ROOT = os.path.join(DATA_DIR, 'uploads')
 
 if PUBLIC_DIR:
     STATIC_URL = '/static/collected/'

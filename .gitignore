@@ -2,6 +2,7 @@
 docs/build
 docs/source/_static
 test_ddf_project/htmlcov/
+test_ddf_project/node_modules
 test_ddf_project/.coverage
 build
 dist
