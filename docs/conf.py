@@ -16,6 +16,8 @@ import sys
 import os
 from better import better_theme_path
 
+js_source_path = '../src/facond/'
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -24,9 +26,9 @@ sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), "_ext")))
 sys.path.insert(0, os.path.abspath('../src/'))
 sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "../test_ddf_project")))
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/facond_examples")))
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'facond_examples.settings')
 import django
 django.setup()
 # -- General configuration ------------------------------------------------
@@ -39,6 +41,7 @@ django.setup()
 # ones.
 extensions = [
     'djangodocs',
+    'sphinx_js',
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
@@ -59,7 +62,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'django-dynamic-fields'
+project = u'facond'
 copyright = u'2016, James Pic'
 author = u'James Pic'
 
@@ -239,7 +242,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'django-dynamic-fields.tex', u'Django Dynamic Fields Documentation',
+    (master_doc, 'facond.tex', u'Facond (Form/Action/Condition) Documentation',
      u'James Pic', 'manual'),
 ]
 
@@ -269,7 +272,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'django-dynamic-fields', u'django-dynamic-fields Documentation',
+    (master_doc, 'facond', u'Facond (Form/Action/Condition) Documentation',
      [author], 1)
 ]
 
@@ -283,8 +286,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'django-dynamic-fields Documentation',
-     author, 'django-dynamic-fields', 'One line description of project.',
+    (master_doc, 'Facond Documentation',
+     author, 'Facond', 'Form/Action/Condition.',
      'Miscellaneous'),
 ]
 

@@ -1,0 +1,6 @@
+*.py
+*.pyc
+__pycache__
+static
+migrations
+package

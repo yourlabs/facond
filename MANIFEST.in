@@ -1,0 +1,5 @@
+include *.rst *.txt README
+recursive-include src *.html *.css *.js *.py *.json
+prune src/facond/node_modules
+prune src/facond/coverage
+prune src/facond/*.js

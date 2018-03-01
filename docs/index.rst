@@ -1,18 +1,18 @@
-.. Django Dynamic Fields documentation master file, created by
-   sphinx-quickstart on Thu Oct  6 12:26:41 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to django-dynamic-fields documentation!
-===============================================
+Welcome to Facond (Form/Action/Condition) documentation!
+========================================================
 
 Toc
 ---
 
-.. toctree::
-   :maxdepth: 2
 
-   design
+.. toctree::
+   :maxdepth: 3
+
+   tutorial
+   forms
+   actions
+   conditions
+   examples
 
 Readme
 ------

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <a href="{{ request.path }}">Demo of {{ view.kwargs.app }}{% if request.GET.r %}as {{ request.GET.r }}{% endif %}</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div style="display: inline-block; width: 49%; vertical-align:top;">
+    {{ form.media }}
+    {% block form %}
+    <h2>{{ view.kwargs.app }} form example</h2>
+    {% if form.is_valid %}Valid !{% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {% if request.GET.r == 'table' or not request.GET.r %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        {% endif %}
+
+        {% if request.GET.r == 'ul' %}
+        <ul>
+            {{ form.as_ul }}
+        </ul>
+        {% endif %}
+
+        {% if request.GET.r == 'p' %}
+            {{ form.as_p }}
+        {% endif %}
+
+        {% if request.GET.r == 'material' %}
+            {% load material_form %}
+            <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
+            {% include 'material/includes/material_css.html' %}
+            {% include 'material/includes/material_js.html' %}
+            {% form form=form %}{% endform %}
+        {% endif %}
+
+        <input type="submit" />
+
+        {{ form.facond_html }}
+    </form>
+    {% endblock %}
+</div>
+<div style="display: inline-block; width: 49%; vertical-align:top;">
+    {% block also %}
+    <h2>Try out the various renderings</h2>
+    <p>
+        <ul>
+            <li>
+                <a href="{{ request.path }}?r=table">as table</a>
+            </li>
+            <li>
+                <a href="{{ request.path }}?r=p">as p</a>
+            </li>
+            <li>
+                <a href="{{ request.path }}?r=ul">as ul</a>
+            </li>
+            <li>
+                <a href="{{ request.path }}?r=material">materialize (not working)</a>
+            </li>
+        </ul>
+    </p>
+    <h2>Also check</h2>
+    <p>
+        <ul>
+            <li>
+                <a href="{% url 'formset' view.kwargs.app %}">formset version</a>
+            </li>
+        </ul>
+    </p>
+    {% endblock %}
+</div>
+{% endblock %}
