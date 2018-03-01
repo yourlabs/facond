@@ -1,0 +1,88 @@
+version: 2
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - py-qa
+      - py36-dj20-test
+      - js-qa
+      - js-test
+
+jobs:
+  py-qa:
+    docker:
+    - image: circleci/python:3.6
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: tox environment setup
+        command: pip install --user tox && ~/.local/bin/tox -r -e qa --notest
+    - save_cache:
+        paths: [~/.local, ~/.cache/pip]
+        key: qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: run qa checks
+        command: ~/.local/bin/tox -e qa
+
+  py-test:
+    docker:
+    - image: circleci/python:3.6
+    working_directory: ~/repo
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - test-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: Tox environment setup
+        command: pip install --user tox && ~/.local/bin/tox -r -e py36-dj20 --notest
+    - save_cache:
+        paths: [~/.local, ~/.cache/pip]
+        key: test-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: TEST tox -e py36-dj20
+        command: |
+          ~/.local/bin/tox -e py36-dj20
+          PATH=.tox/py36-dj20/bin:$PATH codecov --token $CODECOV_TOKEN -e $TOXENV
+
+  js-qa:
+    docker:
+    - image: circleci/node:8
+    steps:
+    - checkout
+    - restore_cache:
+        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+    - run:
+        name: RUN yarn install
+        command: npm install yarn; ./node_modules/.bin/yarn install
+    - save_cache:
+        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        paths:
+          - ./node_modules
+    - run:
+        name: RUN yarn run lint
+        command: yarn run lint
+
+  js-test:
+    docker:
+    - image: circleci/node:8
+    steps:
+    - checkout
+    - restore_cache:
+        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+    - run:
+        name: RUN yarn install
+        command: npm install yarn; ./node_modules/.bin/yarn install
+    - save_cache:
+        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        paths:
+          - ./node_modules
+    - run:
+        name: RUN yarn test & coverage upload
+        command: |
+          ./node_modules/.bin/yarn test
+          ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
