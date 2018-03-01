@@ -59,14 +59,14 @@ jobs:
         key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
     - run:
         name: RUN yarn install
-        command: npm install yarn; ./node_modules/.bin/yarn install
+        command: yarn install
     - save_cache:
         key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
         paths:
           - ./node_modules
     - run:
         name: RUN yarn run lint
-        command: ./node_modules/.bin/yarn run lint
+        command: yarn run lint
 
   js-test:
     docker:
