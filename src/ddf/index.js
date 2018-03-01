@@ -1,3 +1,8 @@
+import * as form from './form'
+import * as action from './action'
+import * as rule from './rule'
+import * as condition from './condition'
+
 import $ from 'jquery'
 import debug from 'debug'
 
@@ -26,7 +31,7 @@ function instanciate(attrs) {
 }
 
 function getClass(name) {
-  log('getClass', name)
+  log('getClass(%s)', name)
 
   let parts = name.split('.')
   let pkg = parts[0]
@@ -35,10 +40,9 @@ function getClass(name) {
   }
   let path = map['ddf'] + parts[1]
   let classname = parts[2]
-  import { * } as tmp from path
+  var tmp = require(path)
   let cls = tmp[classname]
 
-  log('Found', cls, 'for', name)
   return cls
 }
 
@@ -57,4 +61,8 @@ $(document).ready(function() {
 export {
   instanciate,
   getClass,
+  action,
+  condition,
+  form,
+  rule
 }

@@ -1,5 +1,6 @@
 import debug from 'debug'
-var debug = debug('ddf.action')
+
+var log = debug('ddf.action')
 
 class Action {
   constructor(conditions) {
@@ -16,7 +17,7 @@ class Action {
       }
     }
 
-    if (window.ddf.debug) console.log('[Action] ', this, '.', method, '(', form, ',', field, ')')
+    log(this, '.', method, '(', form, ',', field, ')')
     this[method](form, field)
   }
 }
@@ -37,6 +38,7 @@ class Remove extends Action {
 // Remove given choices from a field.
 class RemoveChoices extends Action {
   constructor(choices) {
+    super()
     this.choices = choices
   }
 

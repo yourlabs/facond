@@ -63,3 +63,5 @@ class Form {
     }
   }
 }
+
+export { Form }
