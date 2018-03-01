@@ -55,15 +55,9 @@ jobs:
     working_directory: ~/repo/src/ddf
     steps:
     - checkout
-    - restore_cache:
-        key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
     - run:
         name: RUN yarn install
         command: yarn install
-    - save_cache:
-        key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
-        paths:
-          - ./node_modules
     - run:
         name: RUN yarn run lint
         command: yarn run lint
@@ -74,17 +68,11 @@ jobs:
     working_directory: ~/repo/src/ddf
     steps:
     - checkout
-    - restore_cache:
-        key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
     - run:
         name: RUN yarn install
-        command: npm install yarn; ./node_modules/.bin/yarn install
-    - save_cache:
-        key: dependency-cache-js-{{ checksum "src/ddf/yarn.lock" }}
-        paths:
-          - ./node_modules
+        command: yarn install
     - run:
         name: RUN yarn test & coverage upload
         command: |
-          ./node_modules/.bin/yarn test
+          yarn test
           ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
