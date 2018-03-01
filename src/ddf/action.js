@@ -9,7 +9,7 @@ class Action {
 }
 
 export default {
-  actions: {
+  action: {
     Action: Action
   }
 }
