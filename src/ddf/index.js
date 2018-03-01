@@ -20,7 +20,10 @@ function getClass(name) {
   let classname = parts[2]
   var tmp = require(path)
   let cls = tmp[classname]
-  log('getClass(%s) = %s', name, cls)
+
+  if (cls === undefined) {
+    throw 'Could not load ' + name
+  }
 
   return cls
 }
