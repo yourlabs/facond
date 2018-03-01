@@ -51,7 +51,7 @@ function instanciate(attrs) {
   return obj
 }
 
-$(document).ready(function() {
+function setup() {
   $.fn.ddf = function(configuration) {
     let form = ddf.instanciate(configuration)
     form.bind($(this))
@@ -61,7 +61,9 @@ $(document).ready(function() {
   $('script[type="text/ddf-configuration"]').each(function() {
     $(this).parents('form').ddf(JSON.parse($(this).text()))
   })
-})
+}
+
+$(document).ready(setup)
 
 export {
   instanciate,
@@ -69,5 +71,6 @@ export {
   action,
   condition,
   form,
-  rule
+  rule,
+  setup
 }

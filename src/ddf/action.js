@@ -68,8 +68,8 @@ class RemoveChoices extends Action {
   }
 }
 
-export default {
-  Action: Action,
-  Remove: Remove,
-  RemoveChoices: RemoveChoices
+export {
+  Action,
+  Remove,
+  RemoveChoices
 }

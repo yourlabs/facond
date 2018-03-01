@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 class Form {
   constructor(rules, prefix) {
     this.rules = rules
@@ -9,11 +11,8 @@ class Form {
   //
   // Update the form on instanciation to start with a clean state.
   bind(form) {
-    this.form = form
-    let that = this
-    form.on('change', ':input', function() {
-      that.update($(this))
-    })
+    this.form = $(form)
+    form.on('change', ':input', $.proxy(this.update, this))
   }
 
   // Return the jQuery field instance for a field name.

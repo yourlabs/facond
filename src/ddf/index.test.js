@@ -1,5 +1,6 @@
 /* global describe, jest, test, expect */
 
+import $ from 'jquery'
 import * as ddf from './index'
 import * as form from './form'
 import * as action from './action'
@@ -28,7 +29,7 @@ describe('instanciate()', () => {
   test('should instanciate a recursive tree', () => {
     const subject = {
       'cls': 'ddf.form.Form',
-      'prefix': null,
+      'prefix': 'test-',
       'rules': [
          {
           'cls': 'ddf.rule.Rule',
@@ -48,8 +49,21 @@ describe('instanciate()', () => {
         }
       ]
     }
-    const expected = new form.Form()
     let result = ddf.instanciate(subject)
-    expect(result).toBe(expected)
+
+    expect(result.prefix).toBe('test-')
+    expect(result.rules.length).toBe(1)
+    expect(result.rules[0].field).toBe('title')
+    expect(result.rules[0].actions.length).toBe(1)
+    expect(result.rules[0].actions[0].conditions.length).toBe(1)
+    expect(result.rules[0].actions[0].conditions[0].field).toBe('kind')
+    expect(result.rules[0].actions[0].conditions[0].value).toBe('nonprofit')
+  })
+})
+
+describe('setup()', () => {
+  test('should register jquery plugin', () => {
+    ddf.setup()
+    expect($.fn.ddf).toBeDefined()
   })
 })

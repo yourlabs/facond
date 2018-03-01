@@ -13,6 +13,6 @@ class ValueIs {
   }
 }
 
-export default {
-  ValueIs: ValueIs
+export {
+  ValueIs,
 }
