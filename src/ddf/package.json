@@ -1,0 +1,22 @@
+{
+  "name": "django-dynamic-fields",
+  "version": "0.2.3",
+  "description": "Dynamic fields for django forms",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourlabs/django-dynamic-fields.git"
+  },
+  "keywords": [
+    "django"
+  ],
+  "author": "∞ <jpic@yourlabs.org>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yourlabs/django-dynamic-fields/issues"
+  },
+  "homepage": "https://github.com/yourlabs/django-dynamic-fields#readme"
+}
