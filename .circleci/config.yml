@@ -52,15 +52,15 @@ jobs:
   js-qa:
     docker:
     - image: circleci/node:8
-    working_directory: ~/repo/src/ddf
+    working_directory: ~/repo
     steps:
     - checkout
     - run:
         name: RUN yarn install
-        command: yarn install
+        command: cd src/ddf; yarn install
     - run:
         name: RUN yarn run lint
-        command: yarn run lint
+        command: cd src/ddf; yarn run lint
 
   js-test:
     docker:
@@ -70,9 +70,10 @@ jobs:
     - checkout
     - run:
         name: RUN yarn install
-        command: yarn install
+        command: cd src/ddf; yarn install
     - run:
         name: RUN yarn test & coverage upload
         command: |
+          cd src/ddf
           yarn test
           ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
