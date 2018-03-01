@@ -5,7 +5,7 @@ workflows:
   pipeline:
     jobs:
       - py-qa
-      - py36-dj20-test
+      - py36-dj20
       - js-qa
       - js-test
 
@@ -28,7 +28,7 @@ jobs:
         name: run qa checks
         command: ~/.local/bin/tox -e qa
 
-  py-test:
+  py36-dj20:
     docker:
     - image: circleci/python:3.6
     working_directory: ~/repo
