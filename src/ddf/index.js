@@ -1,5 +1,7 @@
 import './actions' as actions
 
-module.exports = {
-  actions: actions
+export default {
+  ddf: {
+    actions: actions
+  }
 }

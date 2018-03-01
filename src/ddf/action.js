@@ -8,6 +8,6 @@ class Action {
   }
 }
 
-module.exports = {
+export default {
   Action: Action
 }
