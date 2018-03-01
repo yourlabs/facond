@@ -1,4 +1,7 @@
 import $ from 'jquery'
+import debug from 'debug'
+
+var log = debug('ddf.form')
 
 class Form {
   constructor(rules, prefix) {
@@ -54,7 +57,7 @@ class Form {
 
   // Update the UI.
   update() {
-    if (ddf.debug) console.log('[Form] ', this, '.update()')
+    log('[Form] ', this, '.update()')
 
     for (var i=0; i<this.rules.length; i++) {
       this.rules[i].apply(this)

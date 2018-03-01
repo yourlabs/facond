@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import debug from 'debug'
 
 var log = debug('ddf.action')
@@ -44,14 +45,12 @@ class RemoveChoices extends Action {
 
   // Hide options which are not in this.choices from a field.
   apply(form, field) {
-    choices = this.choices
-
-    if (choices.indexOf(form.fieldValueGet(field)) >= 0) {
+    if (this.choices.indexOf(form.fieldValueGet(field)) >= 0) {
       form.fieldValueClear(field)
     }
 
     form.fieldGet(field).find('option').each(function() {
-      if (choices.indexOf($(this).attr('value')) >= 0) {
+      if (this.choices.indexOf($(this).attr('value')) >= 0) {
         $(this).hide()
       }
     })
@@ -59,9 +58,8 @@ class RemoveChoices extends Action {
 
   // Show options which are not in this.choices from a field.
   unapply(form, field) {
-    choices = this.choices
     form.fieldGet(field).find('option').each(function() {
-      if (!$(this).attr('value').indexOf(choices)) {
+      if (!$(this).attr('value').indexOf(this.choices)) {
         $(this).show()
       }
     })

@@ -1,5 +1,4 @@
 import { JSDOM } from 'jsdom'
-import $ from 'jquery'
 import { Form } from './form'
 
 const formElement = () => new JSDOM(`

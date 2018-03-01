@@ -1,3 +1,7 @@
+import debug from 'debug'
+
+var log = debug('ddf.rule')
+
 // Validate if a field has a given value.
 class ValueIs {
   constructor(field, value) {
@@ -8,7 +12,7 @@ class ValueIs {
   // Return true if the field's value is this.value
   validate(form) {
     let valid = form.fieldValueGet(this.field) == this.value
-    if (ddf.debug) console.log('[Condition]', this, '.validate(', form, ') = ', valid)
+    log('[Condition]', this, '.validate(', form, ') = ', valid)
     return valid
   }
 }

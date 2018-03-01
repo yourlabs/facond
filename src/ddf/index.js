@@ -12,11 +12,11 @@ function getClass(name) {
   log('getClass(%s)', name)
 
   let parts = name.split('.')
-  let pkg = parts[0]
   let map = {
     ddf: './'
   }
-  let path = map['ddf'] + parts[1]
+  let pkg = parts[0]
+  let path = map[pkg] + parts[1]
   let classname = parts[2]
   var tmp = require(path)
   let cls = tmp[classname]
@@ -53,7 +53,7 @@ function instanciate(attrs) {
 
 function setup() {
   $.fn.ddf = function(configuration) {
-    let form = ddf.instanciate(configuration)
+    let form = instanciate(configuration)
     form.bind($(this))
     form.update()
   }
