@@ -68,7 +68,7 @@ function setup(script) {
 
 document.addEventListener('DOMContentLoaded', function() {
   for (let script of document.querySelectorAll('script[type="text/ddf-configuration"]')) {
-	setup(script)
+    setup(script)
   }
 })
 

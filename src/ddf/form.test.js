@@ -1,6 +1,5 @@
 import { JSDOM } from 'jsdom'
 import { Form } from './form'
-import * as ddf from './index'
 
 const dom = () => new JSDOM(`
 <html><body><form>

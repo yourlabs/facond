@@ -37,7 +37,8 @@ describe('instanciate()', () => {
 
 describe('setup()', () => {
   test('should bind form', () => {
-    let form = ddf.setup(dom().window.document.querySelector('script'))
-    expect(form.form).toBe(dom().window.document.querySelector('form'))
+    let domFixture = dom()
+    let form = ddf.setup(domFixture.window.document.querySelector('script'))
+    expect(form.form).toBe(domFixture.window.document.querySelector('form'))
   })
 })
