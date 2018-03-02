@@ -16,7 +16,7 @@ class Form {
   // Update the form on instanciation to start with a clean state.
   bind() {
     let update = this.update.bind(this)
-    this.form.addEventListener('input', e => update)
+    this.form.addEventListener('input', () => update)
   }
 
   fieldSelector(field) {

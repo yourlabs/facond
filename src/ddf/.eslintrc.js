@@ -28,6 +28,7 @@ module.exports = {
         "semi": [
             "error",
             "never"
-        ]
+        ],
+        "no-cond-assign": "off",
     }
 };
