@@ -47,7 +47,7 @@ jobs:
         name: TEST tox -e py36-dj20
         command: |
           ~/.local/bin/tox -e py36-dj20
-          PATH=.tox/py36-dj20/bin:$PATH codecov --token $CODECOV_TOKEN -e $TOXENV
+          PATH=.tox/py36-dj20/bin:$PATH codecov -e $TOXENV
 
   js-qa:
     docker:
@@ -76,4 +76,4 @@ jobs:
         command: |
           cd src/ddf
           yarn test
-          ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
+          ./node_modules/.bin/codecov
