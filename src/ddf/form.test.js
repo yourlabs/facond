@@ -24,6 +24,10 @@ describe('Form', () => {
     expect(form.field('name').form).toEqual(form)
     expect(form.field('name').element()).toEqual(fieldElement)
   })
+
+  test('bind()', () => {
+
+  })
 })
 
 describe('Field', () => {

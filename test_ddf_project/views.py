@@ -33,12 +33,6 @@ class HomeView(generic.TemplateView):
         return {
             'examples': [
                 app for app in settings.INSTALLED_APPS
-                if os.path.exists(
-                    os.path.join(
-                        settings.BASE_DIR,
-                        app,
-                        'forms.py'
-                    )
-                )
+                if app.startswith('ddf_examples.')
             ]
         }

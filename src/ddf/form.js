@@ -13,7 +13,11 @@ class Field {
   }
 
   element() {
-    return this.form.element.querySelector(this.selector())
+    var result = this.form.element.querySelector(this.selector())
+    if (! result instanceof HTMLElement) {
+      throw 'element ' + this.name + ' not found in ' + this.form.element
+    }
+    return result
   }
 
   value() {

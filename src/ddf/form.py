@@ -26,6 +26,10 @@ class ScriptField(forms.Field):
             widget=ScriptWidget(self),
         )
 
+        # i do this everytime i create something with django forms
+        # perhaps it's time to give djnago forms a redesign ...
+        self.widget.field = self
+
 
 class ScriptWidget(forms.Widget):
     """JSON rendering."""
@@ -49,11 +53,7 @@ class ScriptWidget(forms.Widget):
 
         return mark_safe(''.join((
             '<script type="text/ddf-configuration">',
-            json.dumps(dict(
-                cls='ddf.form.Form',
-                prefix=prefix,
-                rules=[r.dict() for r in self.field.rules],
-            )),
+            json.dumps(self.field.form.js_dict()),
             '</script>',
         )))
 

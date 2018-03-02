@@ -182,8 +182,11 @@ describe('setup()', () => {
      </div>
      <div>
        <input type="radio" id="id_kind_corporate" name="kind">
+       <label for="id_kind_corporate">Corporate</label>
+     </div>
+     <div>
        <input type="radio" id="id_kind_nonprofit" name="kind">
-       <label for="id_kind_corporate"></label>
+       <label for="id_kind_nonprofit">Corporate</label>
      </div>
     </div>
     <script type="text/ddf-configuration">
@@ -196,6 +199,6 @@ describe('setup()', () => {
     let domFixture = dom()
     let script = domFixture.window.document.querySelector('script')
     let form = ddf.setup(script)
-    expect(form.form).toBe(domFixture.window.document.querySelector('form'))
+    expect(form.element).toBe(domFixture.window.document.querySelector('form'))
   })
 })
