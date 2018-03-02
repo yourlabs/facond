@@ -1,6 +1,5 @@
 /* global describe, jest, test, expect */
 
-import $ from 'jquery'
 import * as ddf from './index'
 import * as form from './form'
 import * as action from './action'
@@ -62,8 +61,7 @@ describe('instanciate()', () => {
 })
 
 describe('setup()', () => {
-  test('should register jquery plugin', () => {
+  test('should register plugin', () => {
     ddf.setup()
-    expect($.fn.ddf).toBeDefined()
   })
 })

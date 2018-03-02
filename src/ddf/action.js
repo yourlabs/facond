@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import debug from 'debug'
 
 var log = debug('ddf.action')

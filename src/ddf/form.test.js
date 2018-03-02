@@ -1,6 +1,5 @@
 import { JSDOM } from 'jsdom'
 import { Form } from './form'
-import $ from 'jquery'
 
 const formElement = () => new JSDOM(`
 <html><body>
@@ -15,9 +14,9 @@ const formElement = () => new JSDOM(`
 describe('Form', () => {
   test('should bind form', () => {
     var subject = new Form([], 'bar')
-    $.on = jest.fn()
+    $ = jest.fn(form => $(form))
     subject.bind(formElement)
     expect(subject.form).toBe($(formElement))
-    expect($.on.mock.calls.length).toBe(4)
+    expect(subject.form.on.mock.calls.length).toBe(4)
   })
 })

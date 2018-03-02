@@ -3,7 +3,6 @@ import * as action from './action'
 import * as rule from './rule'
 import * as condition from './condition'
 
-import $ from 'jquery'
 import debug from 'debug'
 
 var log = debug('ddf')
