@@ -3,55 +3,70 @@ import debug from 'debug'
 var log = debug('ddf.form')
 
 class Form {
-  constructor(rules, prefix) {
+  // A Form matches the Form instance in Django, has a form htmlElement, a
+  // prefix and rules.
+  constructor(form, rules, prefix) {
+    this.form = form
     this.rules = rules
-    this.prefix = prefix
+    this.prefix = prefix || ''
+    this._fieldContainerDisplays = {}
   }
 
-  // A Form matches the Form instance in Django, has a jQuery form object, a
-  // prefix and rules.
   //
   // Update the form on instanciation to start with a clean state.
-  bind(form) {
-    this.form = $(form)
-    this.form.on('change', ':input', $.proxy(this.update, this))
+  bind() {
+    let update = this.update.bind(this)
+    this.form.addEventListener('input', e => update)
+  }
+
+  fieldSelector(field) {
+    return '[name=' + this.prefix + field + ']'
   }
 
   // Return the jQuery field instance for a field name.
-  fieldGet(field) {
-    let prefix = this.prefix ? this.prefix : ''
-    return this.form.find(':input[name=' + prefix + field + ']')
+  fieldElement(field) {
+    return this.form.querySelector(this.fieldSelector(field))
+  }
+
+  fieldLabelSelector(field) {
+    return 'label[for=' + this.fieldElement(field).id + ']'
   }
 
   // Return the jQuery field label instance for a field name.
-  fieldLabelGet(field) {
-    return $('label[for=' + this.fieldGet(field).attr('id') + ']')
+  fieldLabelElement(field) {
+    return this.form.querySelector(this.fieldLabelSelector(field))
   }
 
   // Return the jQuery field container for a field name, it's the element that
   // contains both the field and label.
-  fieldContainerGet(field) {
-    return this.fieldGet(field).parents().has(this.fieldLabelGet(field)).first()
+  fieldContainerElement(field) {
+    let htmlElement = this.fieldElement(field)
+    while (htmlElement = htmlElement.parentNode)
+      if (htmlElement.querySelector(this.fieldLabelSelector(field)) != undefined)
+        return htmlElement
   }
 
   // Return the value of a field by name.
   fieldValueGet(field) {
-    return this.fieldGet(field).val()
+    return this.fieldElement(field).value
   }
 
   // Clear the value of a field by name.
   fieldValueClear(field) {
-    return this.fieldGet(field).val('')
+    return this.fieldElement(field).reset()
   }
 
   // Hide a field container.
   fieldHide(field) {
-    return this.fieldContainerGet(field).hide()
+    let container = this.fieldContainerElement(field)
+    if (this._fieldContainerDisplays[field] === undefined)
+      this._fieldContainerDisplays[field] = container.style.display
+    this.fieldContainerElement(field).style.display = 'none'
   }
 
   // Show a field container.
   fieldShow(field) {
-    return this.fieldContainerGet(field).show()
+    this.fieldContainerElement(field).style.display = this._fieldContainerDisplays[field] || 'block'
   }
 
   // Update the UI.

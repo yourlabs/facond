@@ -1,56 +1,31 @@
 /* global describe, jest, test, expect */
 
+import { formConfiguration, dom } from './conftest'
 import * as ddf from './index'
-import * as form from './form'
-import * as action from './action'
-import * as rule from './rule'
-import * as condition from './condition'
 
 describe('getClass()', () => {
   test('ddf.form.Form', () => {
-    expect(ddf.getClass('ddf.form.Form')).toBe(form.Form)
+    expect(ddf.getClass('ddf.form.Form')).toBe(ddf.form.Form)
   })
   test('ddf.action.Action', () => {
-    expect(ddf.getClass('ddf.action.Action')).toBe(action.Action)
+    expect(ddf.getClass('ddf.action.Action')).toBe(ddf.action.Action)
   })
   test('ddf.action.Remove', () => {
-    expect(ddf.getClass('ddf.action.Remove')).toBe(action.Remove)
+    expect(ddf.getClass('ddf.action.Remove')).toBe(ddf.action.Remove)
   })
   test('ddf.condition.ValueIs', () => {
-    expect(ddf.getClass('ddf.condition.ValueIs')).toBe(condition.ValueIs)
+    expect(ddf.getClass('ddf.condition.ValueIs')).toBe(ddf.condition.ValueIs)
   })
   test('ddf.rule.Rule', () => {
-    expect(ddf.getClass('ddf.rule.Rule')).toBe(rule.Rule)
+    expect(ddf.getClass('ddf.rule.Rule')).toBe(ddf.rule.Rule)
   })
 })
 
 describe('instanciate()', () => {
   test('should instanciate a recursive tree', () => {
-    const subject = {
-      'cls': 'ddf.form.Form',
-      'prefix': 'test-',
-      'rules': [
-        {
-          'cls': 'ddf.rule.Rule',
-          'field': 'title',
-          'actions': [
-            {
-              'cls': 'ddf.action.Remove',
-              'conditions': [
-                {
-                  'cls': 'ddf.condition.ValueIs',
-                  'field': 'kind',
-                  'value': 'nonprofit'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-    let result = ddf.instanciate(subject)
+    let result = ddf.instanciate(formConfiguration)
 
-    expect(result.prefix).toBe('test-')
+    expect(result.prefix).toBe('')
     expect(result.rules.length).toBe(1)
     expect(result.rules[0].field).toBe('title')
     expect(result.rules[0].actions.length).toBe(1)
@@ -61,7 +36,8 @@ describe('instanciate()', () => {
 })
 
 describe('setup()', () => {
-  test('should register plugin', () => {
-    ddf.setup()
+  test('should bind form', () => {
+    let form = ddf.setup(dom().window.document.querySelector('script'))
+    expect(form.form).toBe(dom().window.document.querySelector('form'))
   })
 })

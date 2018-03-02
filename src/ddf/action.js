@@ -7,7 +7,7 @@ class Action {
     this.conditions = conditions || []
   }
 
-  apply(form, field) {
+  execute(form, field) {
     let method = 'apply'
 
     for (var i=0; i<this.conditions.length; i++) {
@@ -48,7 +48,7 @@ class RemoveChoices extends Action {
       form.fieldValueClear(field)
     }
 
-    form.fieldGet(field).find('option').each(function() {
+    form.fieldElement(field).find('option').each(function() {
       if (this.choices.indexOf($(this).attr('value')) >= 0) {
         $(this).hide()
       }
@@ -57,7 +57,7 @@ class RemoveChoices extends Action {
 
   // Show options which are not in this.choices from a field.
   unapply(form, field) {
-    form.fieldGet(field).find('option').each(function() {
+    form.fieldElement(field).find('option').each(function() {
       if (!$(this).attr('value').indexOf(this.choices)) {
         $(this).show()
       }

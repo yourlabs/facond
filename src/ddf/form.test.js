@@ -1,22 +1,19 @@
 import { JSDOM } from 'jsdom'
 import { Form } from './form'
+import * as ddf from './index'
 
-const formElement = () => new JSDOM(`
-<html><body>
-<form>
-  <div>
-   <input id="id_name" name="name" />
-   <label for="id_name">Name</label>
+const dom = () => new JSDOM(`
+<html><body><form>
+  <div id="name-container">
+    <input id="id_name" name="name" />
+    <label for="id_name">Name</label>
   </div>
-</body></html>
-`).querySelector('form')
+</form></body></html>
+`)
 
 describe('Form', () => {
-  test('should bind form', () => {
-    var subject = new Form([], 'bar')
-    $ = jest.fn(form => $(form))
-    subject.bind(formElement)
-    expect(subject.form).toBe($(formElement))
-    expect(subject.form.on.mock.calls.length).toBe(4)
+  test('fieldContainerElement()', () => {
+    let form = new Form(dom().window.document.querySelector('form'))
+    expect(form.fieldContainerElement('name').id).toBe('name-container')
   })
 })

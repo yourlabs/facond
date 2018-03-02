@@ -50,19 +50,27 @@ function instanciate(attrs) {
   return obj
 }
 
-function setup() {
-  $.fn.ddf = function(configuration) {
-    let form = instanciate(configuration)
-    form.bind($(this))
-    form.update()
-  }
+function setup(script) {
+  // instanciate a form with the configuration in the script tag
+  let form = instanciate(JSON.parse(script.textContent))
 
-  $('script[type="text/ddf-configuration"]').each(function() {
-    $(this).parents('form').ddf(JSON.parse($(this).text()))
-  })
+  // bind parent element as form
+  form.form = script.parentElement
+
+  // bind configured Form instance to form element
+  form.bind()
+
+  // trigger initial form setup
+  form.update()
+
+  return form
 }
 
-$(document).ready(setup)
+document.addEventListener('DOMContentLoaded', function() {
+  for (let script of document.querySelectorAll('script[type="text/ddf-configuration"]')) {
+	setup(script)
+  }
+})
 
 export {
   instanciate,
