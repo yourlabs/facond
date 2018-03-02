@@ -1,9 +1,9 @@
 """Conditions for Actions."""
 
-from .base import DictMixin
+from .js import JsDictMixin
 
 
-class Condition(DictMixin):
+class Condition(JsDictMixin):
     """Base condition."""
 
 

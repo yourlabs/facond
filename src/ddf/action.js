@@ -7,31 +7,31 @@ class Action {
     this.conditions = conditions || []
   }
 
-  execute(form, field) {
+  execute(field) {
     let method = 'apply'
 
     for (var i=0; i<this.conditions.length; i++) {
-      if (!this.conditions[i].validate(form)) {
+      if (!this.conditions[i].validate(field.form)) {
         method = 'unapply'
         break
       }
     }
 
-    log(this, '.', method, '(', form, ',', field, ')')
-    this[method](form, field)
+    log(this, '.', method, '(', field, ')')
+    this[method](field)
   }
 }
 
 // Remove a field from a form.
 class Remove extends Action {
   // Hide the field.
-  apply(form, field) {
-    form.fieldHide(field)
+  apply(field) {
+    field.hide()
   }
 
   // Show the field.
-  unapply(form, field) {
-    form.fieldShow(field)
+  unapply(field) {
+    field.show()
   }
 }
 
@@ -43,12 +43,12 @@ class RemoveChoices extends Action {
   }
 
   // Hide options which are not in this.choices from a field.
-  apply(form, field) {
-    if (this.choices.indexOf(form.fieldValueGet(field)) >= 0) {
-      form.fieldValueClear(field)
+  apply(field) {
+    if (this.choices.indexOf(field.value()) >= 0) {
+      field.valueClear()
     }
 
-    form.fieldElement(field).find('option').each(function() {
+    field.element().querySelector('option').each(function() {
       if (this.choices.indexOf($(this).attr('value')) >= 0) {
         $(this).hide()
       }
@@ -56,8 +56,8 @@ class RemoveChoices extends Action {
   }
 
   // Show options which are not in this.choices from a field.
-  unapply(form, field) {
-    form.fieldElement(field).find('option').each(function() {
+  unapply(field) {
+    field.find('option').each(function() {
       if (!$(this).attr('value').indexOf(this.choices)) {
         $(this).show()
       }

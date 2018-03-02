@@ -2,25 +2,25 @@
 
 from django import forms
 
-from .base import DictMixin
+from .js import JsDictMixin
 
 
-class Action(DictMixin):
+class Action(JsDictMixin):
     """An action to take on a list of fields."""
 
     def __init__(self, *conditions):
         """Instanciate with a list of condition to require."""
         self.conditions = conditions
 
-    def execute(self, form, field):
+    def execute(self, field):
         """Prevent the action from being applied if conditions don't pass."""
         for condition in self.conditions:
-            if not condition.validate(form):
+            if not condition.validate(field.form):
                 return
 
-        self.apply(form, field)
+        self.apply(field)
 
-    def apply(self, form, field):
+    def apply(self, field):
         """Actual application of the action on the form field."""
         raise NotImplemented()
 
@@ -28,12 +28,12 @@ class Action(DictMixin):
 class Remove(Action):
     """Remove fields from a form."""
 
-    def apply(self, form, field):
+    def apply(self, field):
         """Remove the field and data."""
-        form.fields.pop(field)
+        field.form.fields.pop(field.name)
 
-        if field in form.data:
-            form.data.pop(field)
+        if field in field.form.data:
+            field.form.data.pop(field)
 
 
 class RemoveChoices(Action):
@@ -44,12 +44,12 @@ class RemoveChoices(Action):
         self.choices = choices
         super(RemoveChoices, self).__init__(*conditions)
 
-    def apply(self, form, field):
+    def apply(self, field):
         """Raise a ValidationError if the field value is in self.values."""
-        value = form.data.get(field, None)
+        value = field.form.data.get(field.name, None)
         if value in self.choices:
             raise forms.ValidationError(
-                form.fields[field].error_messages['invalid_choice'],
+                field.error_messages['invalid_choice'],
                 code='invalid_choice',
                 params={'value': value},
             )

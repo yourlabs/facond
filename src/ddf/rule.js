@@ -13,7 +13,7 @@ class Rule {
   apply(form) {
     log('[Rule]', this, '.apply(', form, ')')
     for (var i=0; i<this.actions.length; i++) {
-      this.actions[i].execute(form, this.field)
+      this.actions[i].execute(form.field(this.field))
     }
   }
 }

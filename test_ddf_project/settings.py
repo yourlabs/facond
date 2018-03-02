@@ -86,8 +86,8 @@ INSTALLED_APPS = (
     'ddf',
     'webpack_loader',
 
-    'remove_fields',
-    'remove_choices',
+    'ddf_examples.remove_fields',
+    'ddf_examples.remove_choices',
 )
 
 MIDDLEWARE_CLASSES = (

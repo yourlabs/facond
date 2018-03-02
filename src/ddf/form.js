@@ -2,71 +2,82 @@ import debug from 'debug'
 
 var log = debug('ddf.form')
 
-class Form {
-  // A Form matches the Form instance in Django, has a form htmlElement, a
-  // prefix and rules.
-  constructor(form, rules, prefix) {
+class Field {
+  constructor(form, name) {
     this.form = form
-    this.rules = rules
-    this.prefix = prefix || ''
-    this._fieldContainerDisplays = {}
+    this.name = name
   }
 
-  //
-  // Update the form on instanciation to start with a clean state.
-  bind() {
-    let update = this.update.bind(this)
-    this.form.addEventListener('input', () => update)
+  selector() {
+    return '[name=' + this.form.prefix + this.name + ']'
   }
 
-  fieldSelector(field) {
-    return '[name=' + this.prefix + field + ']'
+  element() {
+    return this.form.element.querySelector(this.selector())
   }
 
-  // Return the jQuery field instance for a field name.
-  fieldElement(field) {
-    return this.form.querySelector(this.fieldSelector(field))
+  value() {
+    return this.element().value
   }
 
-  fieldLabelSelector(field) {
-    return 'label[for=' + this.fieldElement(field).id + ']'
+  valueClear() {
+    return this.element().reset()
   }
 
-  // Return the jQuery field label instance for a field name.
-  fieldLabelElement(field) {
-    return this.form.querySelector(this.fieldLabelSelector(field))
+  labelSelector() {
+    return 'label[for=' + this.element().id + ']'
   }
 
-  // Return the jQuery field container for a field name, it's the element that
-  // contains both the field and label.
-  fieldContainerElement(field) {
-    let htmlElement = this.fieldElement(field)
+  labelElement() {
+    return this.form.element.querySelector(this.labelSelector())
+  }
+
+  containerElement() {
+    let htmlElement = this.element()
     while (htmlElement = htmlElement.parentNode)
-      if (htmlElement.querySelector(this.fieldLabelSelector(field)) != undefined)
+      if (htmlElement.querySelector(this.labelSelector()) != undefined)
         return htmlElement
   }
 
-  // Return the value of a field by name.
-  fieldValueGet(field) {
-    return this.fieldElement(field).value
+  hide() {
+    let container = this.containerElement()
+    this._oldDisplay = container.style.display == 'none' ? 'block' : container.style.display
+    container.style.display = 'none'
   }
 
-  // Clear the value of a field by name.
-  fieldValueClear(field) {
-    return this.fieldElement(field).reset()
+  show() {
+    this.containerElement().style.display = this._oldDisplay
+  }
+}
+
+class Form {
+  // A Form matches the Form instance in Django, has a form htmlElement, a
+  // prefix and rules.
+  constructor(element, rules, prefix) {
+    this.element = element
+    this.rules = rules
+    this.prefix = prefix || ''
+    this.fields = {}
   }
 
-  // Hide a field container.
-  fieldHide(field) {
-    let container = this.fieldContainerElement(field)
-    if (this._fieldContainerDisplays[field] === undefined)
-      this._fieldContainerDisplays[field] = container.style.display
-    this.fieldContainerElement(field).style.display = 'none'
+  field(name) {
+    // Make it up if it doesn't exist
+    if (this.fields[name] === undefined)
+      this.fields[name] = new Field(this, name)
+
+    // Compensate for dumb hydratation done from JSON dict
+    if (this.fields[name].form === undefined)
+      this.fields[name].form = this
+
+    return this.fields[name]
   }
 
-  // Show a field container.
-  fieldShow(field) {
-    this.fieldContainerElement(field).style.display = this._fieldContainerDisplays[field] || 'block'
+  // Update the form on instanciation to start with a clean state.
+  bind(formElement) {
+    // compensate for dumb json hydratation
+    if (formElement !== undefined) this.element = formElement
+    let update = this.update.bind(this)
+    this.element.addEventListener('input', () => update)
   }
 
   // Update the UI.
@@ -79,4 +90,4 @@ class Form {
   }
 }
 
-export { Form }
+export { Field, Form }

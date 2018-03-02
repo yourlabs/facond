@@ -27,23 +27,31 @@ function getClass(name) {
   return cls
 }
 
+function convert(value) {
+  if (value === undefined || value === null) {
+    // inhibit further type and attribute checks
+    return value
+  } else if (value.cls !== undefined) {
+    return instanciate(value)
+  } else if (Array.isArray(value)) {
+    return value.map(convert)
+  } else if (value && typeof value === 'object' && value.constructor === Object) {
+    let newvalue = {}
+    for (let key in value) {
+      newvalue[key] = convert(value[key])
+    }
+    return newvalue
+  } else {
+    return value
+  }
+}
+
 function instanciate(attrs) {
   let cls = getClass(attrs.cls)
-  log(cls)
   let obj = new cls()
 
   for (let key in attrs) {
-    let value = attrs[key]
-
-    if (attrs[key] === undefined || attrs[key] === null) {
-      obj[key] = value
-    } else if (value instanceof Array && value.length && value[0].cls !== undefined) {
-      obj[key] = value.map(instanciate)
-    } else if (attrs[key].cls !== undefined) {
-      obj[key] = instanciate(attrs)
-    } else {
-      obj[key] = value
-    }
+    obj[key] = convert(attrs[key])
   }
 
   log('Instanciated', obj)
@@ -54,11 +62,8 @@ function setup(script) {
   // instanciate a form with the configuration in the script tag
   let form = instanciate(JSON.parse(script.textContent))
 
-  // bind parent element as form
-  form.form = script.parentElement
-
   // bind configured Form instance to form element
-  form.bind()
+  form.bind(script.parentElement)
 
   // trigger initial form setup
   form.update()
@@ -73,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 export {
+  convert,
   instanciate,
   getClass,
   action,

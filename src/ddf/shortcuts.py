@@ -12,9 +12,9 @@ from .condition import (
 )
 
 from .form import (
-    Field,
+    ScriptField,
     FormMixin,
-    Widget,
+    ScriptWidget,
 )
 
 from .rule import Rule
