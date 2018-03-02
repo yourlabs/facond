@@ -15,7 +15,7 @@ class Form {
   // Update the form on instanciation to start with a clean state.
   bind(form) {
     this.form = $(form)
-    form.on('change', ':input', $.proxy(this.update, this))
+    this.form.on('change', ':input', $.proxy(this.update, this))
   }
 
   // Return the jQuery field instance for a field name.
