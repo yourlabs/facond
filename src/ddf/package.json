@@ -1,6 +1,6 @@
 {
   "name": "django-dynamic-fields",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "Dynamic fields for django forms",
   "main": "index.js",
   "scripts": {
