@@ -44,13 +44,11 @@ class Field {
   }
 
   hide() {
-    let container = this.containerElement()
-    this._oldDisplay = container.style.display == 'none' ? 'block' : container.style.display
-    container.style.display = 'none'
+    this.containerElement().classList.add('ddf-hide')
   }
 
   show() {
-    this.containerElement().style.display = this._oldDisplay
+    this.containerElement().classList.remove('ddf-hide')
   }
 }
 
@@ -60,8 +58,16 @@ class Form {
   constructor(element, rules, prefix) {
     this.element = element
     this.rules = rules
-    this.prefix = prefix || ''
+    this.prefix = prefix
     this.fields = {}
+  }
+
+  set prefix(value) {
+    this._prefix = value || ''
+  }
+
+  get prefix() {
+    return this._prefix ? this._prefix + '-' : ''
   }
 
   field(name) {
@@ -81,7 +87,7 @@ class Form {
     // compensate for dumb json hydratation
     if (formElement !== undefined) this.element = formElement
     let update = this.update.bind(this)
-    this.element.addEventListener('input', () => update)
+    this.element.addEventListener('input', update)
   }
 
   // Update the UI.

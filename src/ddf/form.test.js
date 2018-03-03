@@ -25,14 +25,19 @@ describe('Form', () => {
     expect(form.field('name').element()).toEqual(fieldElement)
   })
 
-  test('bind()', () => {
-
+  test('prefix should always be a string', () => {
+    form.prefix = null
+    expect(form.prefix).toEqual('')
   })
 })
 
-describe('Field', () => {
-  let form = new Form(formElement)
+describe('Field no prefix', () => {
+  let form = new Form(formElement, [], null)
   let field = new Field(form, 'name')
+
+  test('selector()', () => {
+    expect(field.selector()).toEqual('[name=name]')
+  })
 
   test('element()', () => {
     expect(field.element()).toEqual(fieldElement)
@@ -53,5 +58,14 @@ describe('Field', () => {
   test('value() -> changed', () => {
     field.element().value = 'test'
     expect(field.value()).toEqual('test')
+  })
+})
+
+describe('Field with prefix', () => {
+  let form = new Form(formElement, [], 'test')
+  let field = new Field(form, 'name')
+
+  test('selector()', () => {
+    expect(field.selector()).toEqual('[name=test-name]')
   })
 })

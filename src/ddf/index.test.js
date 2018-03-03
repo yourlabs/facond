@@ -38,6 +38,12 @@ const formConfiguration = {
 
 const formConfigurationJSON = JSON.stringify(formConfiguration)
 
+describe('JsDictClsRegistry', () => {
+  let registry = new ddf.JsDictClsRegistry()
+  registry.register('foo.bar', {a: 123})
+  expect(registry.get('foo.bar.a')).toEqual(123)
+})
+
 describe('convert(single values)', () => {
   test('null', () => {
     expect(ddf.convert(null)).toBe(null)
@@ -134,21 +140,21 @@ describe('convert(complex structure)', () => {
   })
 })
 
-describe('getClass()', () => {
+describe('JsDictClsRegistry.get()', () => {
   test('ddf.form.Form', () => {
-    expect(ddf.getClass('ddf.form.Form')).toBe(ddf.form.Form)
+    expect(ddf.jsRegistry.get('ddf.form.Form')).toBe(ddf.form.Form)
   })
   test('ddf.action.Action', () => {
-    expect(ddf.getClass('ddf.action.Action')).toBe(ddf.action.Action)
+    expect(ddf.jsRegistry.get('ddf.action.Action')).toBe(ddf.action.Action)
   })
   test('ddf.action.Remove', () => {
-    expect(ddf.getClass('ddf.action.Remove')).toBe(ddf.action.Remove)
+    expect(ddf.jsRegistry.get('ddf.action.Remove')).toBe(ddf.action.Remove)
   })
   test('ddf.condition.ValueIs', () => {
-    expect(ddf.getClass('ddf.condition.ValueIs')).toBe(ddf.condition.ValueIs)
+    expect(ddf.jsRegistry.get('ddf.condition.ValueIs')).toBe(ddf.condition.ValueIs)
   })
   test('ddf.rule.Rule', () => {
-    expect(ddf.getClass('ddf.rule.Rule')).toBe(ddf.rule.Rule)
+    expect(ddf.jsRegistry.get('ddf.rule.Rule')).toBe(ddf.rule.Rule)
   })
 })
 

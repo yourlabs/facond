@@ -7,25 +7,29 @@ import debug from 'debug'
 
 var log = debug('ddf')
 
-function getClass(name) {
-  log('getClass(%s)', name)
-
-  let parts = name.split('.')
-  let map = {
-    ddf: './'
-  }
-  let pkg = parts[0]
-  let path = map[pkg] + parts[1]
-  let classname = parts[2]
-  var tmp = require(path)
-  let cls = tmp[classname]
-
-  if (cls === undefined) {
-    throw 'Could not load ' + name
+class JsDictClsRegistry {
+  constructor() {
+    this.modules = {}
   }
 
-  return cls
+  register(name, module) {
+    this.modules[name] = module
+  }
+
+  get(name) {
+    let parts = name.split('.')
+    let className = parts.slice(-1)[0]
+    let moduleName = parts.slice(0, -1).join('.')
+    let module = this.modules[moduleName]
+    return module[className]
+  }
 }
+
+jsRegistry = window.jsRegistry = new JsDictClsRegistry()
+window.jsRegistry.register('ddf.action', action)
+window.jsRegistry.register('ddf.condition', condition)
+window.jsRegistry.register('ddf.form', form)
+window.jsRegistry.register('ddf.rule', rule)
 
 function convert(value) {
   if (value === undefined || value === null) {
@@ -47,7 +51,7 @@ function convert(value) {
 }
 
 function instanciate(attrs) {
-  let cls = getClass(attrs.cls)
+  let cls = jsRegistry.get(attrs.cls)
   let obj = new cls()
 
   for (let key in attrs) {
@@ -59,11 +63,24 @@ function instanciate(attrs) {
 }
 
 function setup(script) {
+  // ensure a ddf-hide class exists
+  if (!window.document.getElementById('ddf-style')) {
+    let style = window.document.createElement('style')
+    style.type = 'text/css'
+    style.id = 'ddf-style'
+    style.innerHTML = '.ddf-hide { display: none; }'
+    window.document.getElementsByTagName('head')[0].appendChild(style)
+  }
+
   // instanciate a form with the configuration in the script tag
   let form = instanciate(JSON.parse(script.textContent))
 
   // bind configured Form instance to form element
-  form.bind(script.parentElement)
+  let htmlElement = script
+  while (htmlElement = htmlElement.parentElement)
+    if (htmlElement.matches('form')) break
+
+  form.bind(htmlElement)
 
   // trigger initial form setup
   form.update()
@@ -80,7 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
 export {
   convert,
   instanciate,
-  getClass,
+  jsRegistry,
+  JsDictClsRegistry,
   action,
   condition,
   form,
