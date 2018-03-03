@@ -11,8 +11,7 @@ class ValueIs {
 
   // Return true if the field's value is this.value
   validate(form) {
-    let field = form.field(this.field)
-    let valid = form.field(this.field).value() == this.value
+    let valid = form.field(this.field).value == this.value
     log('[Condition]', this, '.validate(', form, ') = ', valid)
     return valid
   }

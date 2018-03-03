@@ -77,17 +77,26 @@ class FormMixin(JsDictMixin):
             field.name = name
 
     def full_clean(self):
-        """Apply each rule before super."""
-        for rule in self.ddf_rules():
-            rule.apply(self)
-        return super(FormMixin, self).full_clean()
+        """Apply each rule during validation, and then unapply them."""
+        applied = []
+        for rule in self.ddf_rules:
+            applied += rule.apply(self)
+
+        ddf = self.fields.pop('django_dynamic_fields')
+        result = super(FormMixin, self).full_clean()
+        self.fields['django_dynamic_fields'] = ddf
+
+        for action in applied:
+            action.unapply(self)
+
+        return result
 
     def js_dict(self):
         """Craft a simple JS dict for this complex Python object."""
         return dict(
             cls='ddf.form.Form',
             prefix=self.prefix,
-            rules=[r.js_dict() for r in self.ddf_rules()],
+            rules=[r.js_dict() for r in self.ddf_rules],
             fields={
                 name: dict(
                     cls=getattr(field, 'js_class', 'ddf.form.Field'),
@@ -98,9 +107,12 @@ class FormMixin(JsDictMixin):
             }
         )
 
+    @property
     def ddf_rules(self):
         """Return the list of Rule instances reversed from self._ddf."""
-        return [
-            Rule(field, actions)
-            for field, actions in self._ddf.items()
-        ]
+        if getattr(self, '_ddf_rules', None) is None:
+            self._ddf_rules = [
+                Rule(field, actions)
+                for field, actions in self._ddf.items()
+            ]
+        return self._ddf_rules

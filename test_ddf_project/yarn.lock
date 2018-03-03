@@ -1527,9 +1527,9 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
-django-dynamic-fields@^0.2.15:
-  version "0.2.15"
-  resolved "https://registry.yarnpkg.com/django-dynamic-fields/-/django-dynamic-fields-0.2.15.tgz#e5e8867b56751229759686d9ccde1cb11195f921"
+django-dynamic-fields@^0.2.18:
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/django-dynamic-fields/-/django-dynamic-fields-0.2.18.tgz#ed2151bf830291c80bd28b1fd8516c2e64e26c4a"
   dependencies:
     debug "^3.1.0"
     enhanced-resolve "^4.0.0"

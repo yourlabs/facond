@@ -44,11 +44,11 @@ class RemoveChoices extends Action {
 
   // Hide options which are not in this.choices from a field.
   apply(field) {
-    if (this.choices.indexOf(field.value()) >= 0) {
+    if (this.choices.indexOf(field.value) >= 0) {
       field.valueClear()
     }
 
-    field.element().querySelector('option').each(function() {
+    field.element.querySelector('option').each(function() {
       if (this.choices.indexOf($(this).attr('value')) >= 0) {
         $(this).hide()
       }

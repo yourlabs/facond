@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load material_form %}
 {% load render_bundle from webpack_loader %}
 {% load static %}
 
@@ -16,7 +17,14 @@
     <form action="" method="post">
         {% csrf_token %}
 
-        {% if request.GET.r == 'table' or not request.GET.r %}
+        {% if request.GET.r == 'material' or not request.GET.r %}
+            <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
+            {% include 'material/includes/material_css.html' %}
+            {% include 'material/includes/material_js.html' %}
+            {% form form=form %}{% endform %}
+        {% endif %}
+
+        {% if request.GET.r == 'table' %}
         <table>
             {{ form.as_table }}
         </table>

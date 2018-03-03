@@ -85,6 +85,7 @@ INSTALLED_APPS = (
 
     'ddf',
     'webpack_loader',
+    'material',
 
     'ddf_examples.remove_fields',
     'ddf_examples.remove_choices',

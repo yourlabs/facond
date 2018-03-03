@@ -83,7 +83,7 @@ describe('RemoveChoices', () => {
     <div id="name-container">
       <select id="id_name" name="name">
         <option value="a">A</option>
-        <option value="b">B</option>
+        <option selected="selected" value="b">B</option>
       </select>
       <label for="id_name">Name</label>
     </div>

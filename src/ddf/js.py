@@ -24,13 +24,17 @@ class JsDictMixin(object):
         data = dict(cls=self.js_class)
 
         for key, value in self.js_dict_items():
-            if isinstance(value, JsDictMixin):
-                data[key] = value.js_dict()
-            elif (hasattr(value, '__iter__') and
-                    isinstance(value[0], JsDictMixin)):
-
-                data[key] = [x.js_dict() for x in value]
-            else:
-                data[key] = value
+            data[key] = self.convert(value)
 
         return data
+
+    def convert(self, value):
+        if isinstance(value, JsDictMixin):
+            return value.js_dict()
+        elif hasattr(value, '__iter__') and not value:
+            return []
+        elif (hasattr(value, '__iter__') and
+                isinstance(value[0], JsDictMixin)):
+            return [x.js_dict() for x in value]
+        else:
+            return value

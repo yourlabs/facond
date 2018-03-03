@@ -8,47 +8,61 @@ class Field {
     this.name = name
   }
 
-  selector() {
+  get selector() {
     return '[name=' + this.form.prefix + this.name + ']'
   }
 
-  element() {
-    var result = this.form.element.querySelector(this.selector())
+  get element() {
+    var result = this.form.element.querySelector(this.selector)
     if (! result instanceof HTMLElement) {
       throw 'element ' + this.name + ' not found in ' + this.form.element
     }
     return result
   }
 
-  value() {
-    return this.element().value
+  get value() {
+    if (this.element.attributes.multiple) {
+      return this.element.querySelectorAll('[selected=selected]')
+    }
+    if (this._valueInitial === undefined) this._valueInitial = this.element.value
+    return this.element.value
   }
 
-  valueClear() {
-    return this.element().reset()
+  set value(value) {
+    this.element.value = value
   }
 
-  labelSelector() {
-    return 'label[for=' + this.element().id + ']'
+  valueReset() {
+    this.element.value = this._valueInitial
   }
 
-  labelElement() {
-    return this.form.element.querySelector(this.labelSelector())
+  get labelSelector() {
+    return 'label[for=' + this.element.id + ']'
   }
 
-  containerElement() {
-    let htmlElement = this.element()
+  get labelElement() {
+    return this.form.element.querySelector(this.labelSelector)
+  }
+
+  get containerElement() {
+    let htmlElement = this.element
     while (htmlElement = htmlElement.parentNode)
-      if (htmlElement.querySelector(this.labelSelector()) != undefined)
+      if (htmlElement.querySelector(this.labelSelector) != undefined)
         return htmlElement
   }
 
   hide() {
-    this.containerElement().classList.add('ddf-hide')
+    this.required = this.element.required
+    this.containerElement.classList.add('ddf-hide')
+    this.element.required = false
   }
 
   show() {
-    this.containerElement().classList.remove('ddf-hide')
+    if (this.element.required)
+      this.element.required = true
+    this.containerElement.classList.remove('ddf-hide')
+    // might have been set on rendering
+    this.element.classList.remove('ddf-hide')
   }
 }
 
