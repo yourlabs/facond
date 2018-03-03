@@ -1,6 +1,6 @@
 {
   "name": "django-dynamic-fields",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Dynamic fields for django forms",
   "main": "index.js",
   "scripts": {
@@ -29,6 +29,7 @@
     "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.3",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
     "codecov": "^3.0.0",
     "eslint": "^4.18.1",
     "jest": "^22.4.2"
