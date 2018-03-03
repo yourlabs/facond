@@ -37,8 +37,8 @@ class Remove extends Action {
 
 // Remove given choices from a field.
 class RemoveChoices extends Action {
-  constructor(choices) {
-    super()
+  constructor(conditions, choices) {
+    super(conditions)
     this.choices = choices
   }
 
