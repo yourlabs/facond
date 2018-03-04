@@ -61,7 +61,7 @@ jobs:
         - test-dependencies-{{ checksum "tox.ini" }}
     - run:
         name: Tox environment setup
-        command: pip install --user tox && ~/.local/bin/tox -r -e py36-dj111 --notest
+        command: pip install --user tox && ~/.local/bin/tox -r -e py27-dj111 --notest
     - save_cache:
         paths: [~/.local, ~/.cache/pip]
         key: test-dependencies-{{ checksum "tox.ini" }}
@@ -69,7 +69,7 @@ jobs:
         name: TEST tox -e py27-dj111
         command: |
           ~/.local/bin/tox -e py27-dj111
-          PATH=.tox/py36-dj111/bin:$PATH codecov -e $TOXENV
+          PATH=.tox/py27-dj111/bin:$PATH codecov -e $TOXENV
 
   js-qa:
     docker:
