@@ -115,6 +115,8 @@ class Form {
     // Compensate for dumb hydratation done from JSON dict
     if (this.fields[name].form === undefined)
       this.fields[name].form = this
+    if (this.fields[name].name === undefined)
+      this.fields[name].name = name
 
     return this.fields[name]
   }

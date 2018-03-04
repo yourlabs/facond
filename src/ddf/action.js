@@ -48,19 +48,18 @@ class RemoveChoices extends Action {
       field.valueClear()
     }
 
-    let options = field.element.querySelectorAll('option')
-    for (let i=0; i < options.length; i++) {
-      if (this.choices.indexOf(options[i].value) >= 0) {
-        options[i].classList.add('ddf-hide')
+    for (let i=0; i < field.element.options.length; i++) {
+      if (this.choices.indexOf(field.element.options[i].value) >= 0) {
+        field.element.options[i].classList.add('ddf-hide')
       }
     }
   }
 
   // Show options which are not in this.choices from a field.
   unapply(field) {
-    for (let i=0; i < options.length; i++) {
-      if (!this.choices.indexOf(options[i].value)) {
-        options[i].classList.remove('ddf-hide')
+    for (let i=0; i < field.element.options.length; i++) {
+      if (!this.choices.indexOf(field.element.options[i].value)) {
+        field.element.options[i].classList.remove('ddf-hide')
       }
     }
   }
