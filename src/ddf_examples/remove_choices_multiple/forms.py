@@ -1,4 +1,4 @@
-"""Demonstrate how to remove choices from multiple field."""
+"""Demonstrate how to remove choices from multiple select."""
 
 from ddf import shortcuts as ddf
 
@@ -6,7 +6,7 @@ from django import forms
 
 
 class TestForm(ddf.FormMixin, forms.Form):
-    """Remove the Support option for windows, sorry :)"""
+    """Remove the Support option for windows, sorry :)."""
 
     platform = forms.ChoiceField(choices=(
         ('Linux', 'Linux'),

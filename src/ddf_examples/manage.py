@@ -1,7 +1,9 @@
 #!/usr/bin/env python
+# flake8: noqa: D*
 import os
 import sys
-import warnings
+
+os.chdir(os.path.dirname(__file__))
 
 
 def main():

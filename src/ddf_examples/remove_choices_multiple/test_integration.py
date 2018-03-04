@@ -1,3 +1,5 @@
+# flake8: noqa: D103
+"""Integration tests for the remove choices from multiple select example."""
 from django import forms
 
 import pytest

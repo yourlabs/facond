@@ -1,7 +1,6 @@
 """Form configuration and entry point."""
 
 import json
-import re
 
 from django import forms
 from django.utils.safestring import mark_safe
@@ -48,9 +47,6 @@ class ScriptWidget(forms.Widget):
 
     def render(self, name, value, attrs=None):
         """Render a script tag with JSON configuration."""
-        m = re.match(r'([^-]+-\d-)', name)
-        prefix = m.group() if m else None
-
         return mark_safe(''.join((
             '<script type="text/ddf-configuration">',
             json.dumps(self.field.form.js_dict()),
@@ -64,6 +60,7 @@ class ScriptWidget(forms.Widget):
 
 class FormMixin(JsDictMixin):
     """Hook into full_clean to apply rules before full_clean."""
+
     js_class = 'ddf.form.Form'
 
     def __init__(self, *args, **kwargs):

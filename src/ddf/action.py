@@ -8,6 +8,7 @@ from .js import JsDictMixin
 
 class Action(JsDictMixin):
     """An action to take on a list of fields."""
+
     js_attrs = ['conditions']
 
     def __init__(self, *conditions):
@@ -58,6 +59,7 @@ class Remove(Action):
 
 class RemoveChoices(Action):
     """Remove choices from a choice field."""
+
     js_attrs = ['conditions', 'choices']
 
     def __init__(self, choices, *conditions):

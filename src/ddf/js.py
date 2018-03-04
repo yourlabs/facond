@@ -15,6 +15,7 @@ class JsDictMixin(object):
         return self.__dict__.keys()
 
     def js_dict_items(self):
+        """Yield items for the JS dict."""
         for key, value in self.__dict__.items():
             if key in self.js_attrs:
                 yield key, value
@@ -29,6 +30,7 @@ class JsDictMixin(object):
         return data
 
     def convert(self, value):
+        """Convert a python value into a JSON compatible value."""
         if isinstance(value, JsDictMixin):
             return value.js_dict()
         elif hasattr(value, '__iter__') and not value:

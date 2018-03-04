@@ -1,3 +1,6 @@
+# flake8: noqa: D*
+"""Unit tests for JsDictMixin."""
+
 from ddf.js import JsDictMixin
 
 
@@ -9,5 +12,5 @@ def test_convert_string():
     assert JsDictMixin().convert('a') == 'a'
 
 
-def test_convert_string():
-    assert JsDictMixin().convert('a') == 'a'
+def test_convert_list():
+    assert JsDictMixin().convert(['a']) == ['a']

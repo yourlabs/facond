@@ -1,4 +1,7 @@
+*.log
+*.tgz
 *pyc
+*egg-info
 docs/build
 docs/source/_static
 src/ddf_examples/htmlcov/
@@ -19,3 +22,8 @@ test_env/
 
 # Pycharm
 .idea/
+yarn-error.log
+node_modules
+coverage
+.vscode
+.pytest_cache

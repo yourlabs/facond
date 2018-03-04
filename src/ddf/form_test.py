@@ -1,3 +1,5 @@
+# flake8: noqa: D*
+
 from ddf_examples.remove_fields.forms import TestForm as RemoveFieldsForm
 
 

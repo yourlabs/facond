@@ -6,6 +6,7 @@ from .js import JsDictMixin
 
 class Rule(JsDictMixin):
     """A rule applies actions if constraints pass."""
+
     js_attrs = ['actions', 'field']
 
     def __init__(self, field, actions):

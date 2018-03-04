@@ -1,3 +1,5 @@
+# flake8: noqa: D103
+"""Tests for the remove field example."""
 from .forms import TestForm
 
 
