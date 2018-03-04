@@ -77,5 +77,6 @@ def test_removes_field_during_validation():
         name='YourLabs Hacker Panarchy'
     ))
     assert form.is_valid()
-    assert list(form.cleaned_data.keys()) == ['kind', 'name']
-    assert list(form.fields.keys()) == ['kind', 'title', 'name', 'django_dynamic_fields']
+    assert sorted(list(form.cleaned_data.keys())) == sorted(['kind', 'name'])
+    assert list(form.fields.keys()) == [
+        'kind', 'title', 'name', 'django_dynamic_fields']
