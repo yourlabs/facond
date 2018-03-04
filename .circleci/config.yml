@@ -5,12 +5,31 @@ workflows:
   pipeline:
     jobs:
       - py-qa
+      - docs
       - py27-dj111
       - py36-dj20
       - js-qa
       - js-test
 
 jobs:
+  docs:
+    docker:
+    - image: circleci/python:3.6
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: tox environment setup
+        command: pip install --user tox && ~/.local/bin/tox -r -e docs --notest
+    - save_cache:
+        paths: [~/.local, ~/.cache/pip]
+        key: qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: run qa checks
+        command: ~/.local/bin/tox -e docs
+
   py-qa:
     docker:
     - image: circleci/python:3.6
