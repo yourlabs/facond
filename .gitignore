@@ -1,8 +1,12 @@
+*.log
+*.tgz
 *pyc
+*egg-info
 docs/build
 docs/source/_static
-test_ddf_project/htmlcov/
-test_ddf_project/.coverage
+src/ddf_examples/htmlcov/
+src/ddf_examples/node_modules
+src/ddf_examples/.coverage
 build
 dist
 ddf.egg-info/
@@ -18,3 +22,8 @@ test_env/
 
 # Pycharm
 .idea/
+yarn-error.log
+node_modules
+coverage
+.vscode
+.pytest_cache

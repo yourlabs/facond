@@ -106,13 +106,5 @@ Nothing exceptional here, we're going with the standard ingredients:
 JavaScript
 ==========
 
-We have the script you can see in ``src/ddf/static/ddf.js``, but I'm currently
-revamping this:
-
-- code in ES6 and build ES5 code, because we're trying to have some sort of
-  equivalent mindset between python and js code, so it'll be easier if the
-  `class syntax look alike
-  <http://es6-features.org/#ClassInheritance>`_,
-- use standard module import code, with requirejs and browserify,
-- we need unit tests and coverage, let's learn from jal !
-- use gulp to simplify the workflow of course !
+We have an npm module called django-dynamic-fields, which you can install with
+npm or edit in ``src/ddf`.

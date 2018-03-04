@@ -1,11 +1,13 @@
 """A Rule for a field has Actions."""
 
 from .action import Action
-from .base import DictMixin
+from .js import JsDictMixin
 
 
-class Rule(DictMixin):
+class Rule(JsDictMixin):
     """A rule applies actions if constraints pass."""
+
+    js_attrs = ['actions', 'field']
 
     def __init__(self, field, actions):
         """List the actions to apply on the field."""
@@ -19,5 +21,8 @@ class Rule(DictMixin):
 
     def apply(self, form):
         """Execute each action on the form."""
+        applied = []
         for action in self.actions:
-            action.execute(form, self.field)
+            if action.execute(form.fields[self.field]):
+                applied.append(action)
+        return applied

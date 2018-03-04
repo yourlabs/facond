@@ -1,3 +1,4 @@
+# flake8: noqa: F401,I202
 """Shortcuts, use: `from ddf import shortcuts as ddf` to feel awesome."""
 
 from .action import (
@@ -12,9 +13,9 @@ from .condition import (
 )
 
 from .form import (
-    Field,
+    ScriptField,
     FormMixin,
-    Widget,
+    ScriptWidget,
 )
 
 from .rule import Rule

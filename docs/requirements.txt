@@ -1,3 +1,4 @@
+sphinx
 sphinx-better-theme
 django
--r ../test_ddf_project/requirements.txt
+-r ../src/ddf_examples/requirements.txt
