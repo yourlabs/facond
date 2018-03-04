@@ -21,15 +21,26 @@ class Field {
   }
 
   get value() {
+    let value = this.element.value
     if (this.element.attributes.multiple) {
-      return this.element.querySelectorAll('[selected=selected]')
+      // wait until es7.comphrensions reach stage 2
+      value = []
+      for (let option of this.element.selectedOptions) value.push(option.value)
     }
-    if (this._valueInitial === undefined) this._valueInitial = this.element.value
-    return this.element.value
+
+    if (this._valueInitial === undefined) this._valueInitial = value
+    return value
   }
 
   set value(value) {
-    this.element.value = value
+    if (this.element.attributes.multiple) {
+      let options = this.element.querySelectorAll('option')
+      for (let i=0; i < options.length; i++) {
+        options[i].selected = value.indexOf(options[i].value) > 0
+      }
+    } else {
+      this.element.value = value
+    }
   }
 
   valueReset() {

@@ -48,20 +48,21 @@ class RemoveChoices extends Action {
       field.valueClear()
     }
 
-    field.element.querySelector('option').each(function() {
-      if (this.choices.indexOf($(this).attr('value')) >= 0) {
-        $(this).hide()
+    let options = field.element.querySelectorAll('option')
+    for (let i=0; i < options.length; i++) {
+      if (this.choices.indexOf(options[i].value) >= 0) {
+        options[i].classList.add('ddf-hide')
       }
-    })
+    }
   }
 
   // Show options which are not in this.choices from a field.
   unapply(field) {
-    field.find('option').each(function() {
-      if (!$(this).attr('value').indexOf(this.choices)) {
-        $(this).show()
+    for (let i=0; i < options.length; i++) {
+      if (!this.choices.indexOf(options[i].value)) {
+        options[i].classList.remove('ddf-hide')
       }
-    })
+    }
   }
 }
 

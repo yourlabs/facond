@@ -92,6 +92,6 @@ describe('select Field', () => {
     expect(formElement.querySelectorAll('[selected=selected]').length).toBe(1)
     field.value = ['a', 'b']
     expect(formElement.querySelectorAll('[selected=selected]').length).toBe(2)
-    expect(field.value).toBe('a')
+    expect(field.value).toBe(['a'])
   })
 })
