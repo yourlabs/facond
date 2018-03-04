@@ -17,7 +17,6 @@ describe('ValueIs', () => {
   let condition = new ValueIs('name', 'test')
 
   test('validate() -> false', () => {
-    console.log(form.field('name'))
     expect(condition.validate(form)).toBe(false)
   })
 

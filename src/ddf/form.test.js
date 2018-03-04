@@ -20,9 +20,9 @@ describe('Form', () => {
   test('field()', () => {
     let result = form.field('name')
 
-    expect(form.field('name')).toBeInstanceOf(Field)
-    expect(form.field('name').form).toEqual(form)
-    expect(form.field('name').element).toEqual(fieldElement)
+    expect(result).toBeInstanceOf(Field)
+    expect(result.form).toEqual(form)
+    expect(result.element).toEqual(fieldElement)
   })
 
   test('prefix should always be a string', () => {

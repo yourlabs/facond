@@ -25,7 +25,7 @@ class JsDictClsRegistry {
   }
 }
 
-jsRegistry = window.jsRegistry = new JsDictClsRegistry()
+var jsRegistry = window.jsRegistry = new JsDictClsRegistry()
 window.jsRegistry.register('ddf.action', action)
 window.jsRegistry.register('ddf.condition', condition)
 window.jsRegistry.register('ddf.form', form)
