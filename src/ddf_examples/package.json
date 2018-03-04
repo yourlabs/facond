@@ -1,0 +1,26 @@
+{
+  "name": "test_ddf_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack --watch",
+    "prepare": "webpack"
+  },
+  "dependencies": {
+    "babel-loader": "^7.1.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "django-dynamic-fields": "^0.2.19",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "materialize": "^1.0.0",
+    "materialize-css": "^0.100.2",
+    "materialize-loader": "^2.0.2",
+    "url-loader": "^1.0.1",
+    "webpack": "^3",
+    "webpack-bundle-tracker": "^0.2.1",
+    "webpack-cli": "^2.0.9"
+  }
+}
