@@ -8,7 +8,7 @@ from .forms import TestForm
 def test_invalidates_choices():
     form = TestForm(dict(
         platform='Windows',
-        service='Support',
+        service=['Support'],
     ))
 
     with pytest.raises(forms.ValidationError):
@@ -18,7 +18,7 @@ def test_invalidates_choices():
 def test_validates_choices():
     form = TestForm(dict(
         platform='Windows',
-        service='Format',
+        service=['Format'],
     ))
 
     assert form.is_valid()

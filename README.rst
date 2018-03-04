@@ -81,6 +81,18 @@ role of hackers in the process of making our society more fair and free, while
 using their skills to develop local economy and give internet back to the
 people.
 
+Run the project
+===============
+
+Run:
+
+    pip install --user -e git+https://github.com/yourlabs/django-dynamic-fields.git#egg=django-dynamic-fields
+    cd ~/.local/src/django-dynamic-fields/src/ddf_examples
+    yarn install  # sudo npm install -g yarn if necessary ;)
+    yarn prepare  # or use yarn start to start webpack with --watch
+    pip install --user -r requirements.txt
+    ddf_examples runserver  # open localhost:8000, don't worry bout migrations ;)
+
 Status
 ======
 

@@ -1,3 +1,0 @@
-django
-django-webpack-loader
-django-material

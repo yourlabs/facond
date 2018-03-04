@@ -19,6 +19,11 @@ setup(
     zip_safe=False,
     long_description=read('README'),
     keywords='django dynamic form',
+    entry_points = {
+        'console_scripts': [
+            'ddf_examples = ddf_examples.manage:main',
+        ],
+    },
     classifiers=[
         'Development Status :: 1 - Planning',
         'Environment :: Web Environment',

@@ -1,1 +1,0 @@
-import 'django-dynamic-fields'

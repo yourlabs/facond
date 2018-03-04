@@ -67,10 +67,14 @@ class RemoveChoices(Action):
 
     def apply(self, field):
         """Raise a ValidationError if the field value is in self.values."""
-        value = field.form.data.get(field.name, None)
-        if value in self.choices:
-            raise forms.ValidationError(
-                field.error_messages['invalid_choice'],
-                code='invalid_choice',
-                params={'value': value},
-            )
+        values = field.form.data.get(field.name, None)
+        if not isinstance(values, list):
+            values = [values]
+
+        for value in values:
+            if value in self.choices:
+                raise forms.ValidationError(
+                    field.error_messages['invalid_choice'],
+                    code='invalid_choice',
+                    params={'value': value},
+                )
