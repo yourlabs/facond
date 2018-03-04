@@ -73,8 +73,6 @@ ALLOWED_HOSTS = ['*']
 
 AUTH_PASSWORD_VALIDATORS = []
 
-# Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',

@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load material_form %}
 {% load render_bundle from webpack_loader %}
 {% load static %}
 
@@ -18,6 +17,7 @@
         {% csrf_token %}
 
         {% if request.GET.r == 'material' or not request.GET.r %}
+            {% load material_form %}
             <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
             {% include 'material/includes/material_css.html' %}
             {% include 'material/includes/material_js.html' %}
@@ -51,6 +51,9 @@
     <h2>Try out the various renderings</h2>
     <p>
         <ul>
+            <li>
+                <a href="{{ request.path }}?r=material">material</a>
+            </li>
             <li>
                 <a href="{{ request.path }}?r=table">as table</a>
             </li>

@@ -102,6 +102,7 @@ class Form {
     if (formElement !== undefined) this.element = formElement
     let update = this.update.bind(this)
     this.element.addEventListener('input', update)
+    this.element.addEventListener('change', update)
   }
 
   // Update the UI.
