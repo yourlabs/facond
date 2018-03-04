@@ -68,30 +68,48 @@ describe('Field with prefix', () => {
 })
 
 describe('select Field', () => {
-  const dom = new JSDOM(`
-  <html><body><form>
-    <div id="name-container">
-      <select id="id_name" name="name" multiple="multiple">
-        <option value="a">A</option>
-        <option selected="selected" value="b">B</option>
-      </select>
-      <label for="id_name">Name</label>
-    </div>
-  </form></body></html>
-  `)
+  function fixture(multiple) {
+    multiple = multiple === true ? 'multiple' : ''
+    const dom = new JSDOM(`
+    <html><body><form>
+      <div id="name-container">
+        <select id="id_name" multiple="${multiple}" name="name">
+          <option value="a">A</option>
+          <option selected="selected" value="b">B</option>
+        </select>
+        <label for="id_name">Name</label>
+      </div>
+    </form></body></html>
+    `)
 
-  let formElement = dom.window.document.querySelector('form')
-  let form = new Form(formElement)
-  let field = form.field('name')
+    let formElement = dom.window.document.querySelector('form')
+    let form = new Form(formElement)
+    return form.field('name')
+  }
 
-  test('get value', () => {
-    expect(field.value).toBe('b')
+  test('single value', () => {
+    let field = fixture()
+    expect(field.value).toEqual('b')
+    expect(field.element.value).toEqual('b')
   })
 
-  test('set value', () => {
-    expect(formElement.querySelectorAll('[selected=selected]').length).toBe(1)
+  test('set single value', () => {
+    let field = fixture()
+    field.value = 'a'
+    expect(field.value).toEqual('a')
+    expect(field.element.value).toEqual('a')
+  })
+
+  test('get multiple value', () => {
+    let field = fixture(true)
+    expect(field.value).toEqual(['b'])
+    expect(field.element.selectedOptions.length).toEqual(1)
+  })
+
+  test('set multiple value', () => {
+    let field = fixture(true)
     field.value = ['a', 'b']
-    expect(formElement.querySelectorAll('[selected=selected]').length).toBe(2)
-    expect(field.value).toBe(['a'])
+    expect(field.value).toEqual(['a', 'b'])
+    expect(field.element.selectedOptions.length).toEqual(2)
   })
 })

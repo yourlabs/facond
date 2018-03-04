@@ -8,6 +8,12 @@ class Field {
     this.name = name
   }
 
+  get multiple() {
+    // i can't believe this thing always return true, even on non multiple selects
+    // this.element.multiple === true
+    return this.element.attributes.multiple && this.element.attributes.multiple.value === 'multiple'
+  }
+
   get selector() {
     return '[name=' + this.form.prefix + this.name + ']'
   }
@@ -22,10 +28,12 @@ class Field {
 
   get value() {
     let value = this.element.value
-    if (this.element.attributes.multiple) {
+
+    if (this.multiple) {
       // wait until es7.comphrensions reach stage 2
       value = []
-      for (let option of this.element.selectedOptions) value.push(option.value)
+      for (let option of this.element.querySelectorAll('[selected=selected]'))
+        value.push(option.value)
     }
 
     if (this._valueInitial === undefined) this._valueInitial = value
@@ -33,10 +41,14 @@ class Field {
   }
 
   set value(value) {
-    if (this.element.attributes.multiple) {
+    if (this.multiple) {
       let options = this.element.querySelectorAll('option')
       for (let i=0; i < options.length; i++) {
-        options[i].selected = value.indexOf(options[i].value) > 0
+        let option = options[i]
+        if (value.indexOf(option.value) >= 0)
+          option.setAttribute('selected', 'selected')
+        else
+          option.removeAttribute('selected')
       }
     } else {
       this.element.value = value
