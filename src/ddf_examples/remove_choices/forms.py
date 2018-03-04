@@ -9,8 +9,8 @@ class TestForm(ddf.FormMixin, forms.Form):
         ('Windows', 'Windows'),
     ))
     service = forms.ChoiceField(choices=(
+        ('Support', 'Support'),
         ('Format', 'Format'),
-        ('Support', 'Support')
     ))
 
     _ddf = dict(

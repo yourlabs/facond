@@ -40,6 +40,10 @@ class Field {
     return value
   }
 
+  get values() {
+    return this.multiple ? this.value : [this.value]
+  }
+
   set value(value) {
     if (this.multiple) {
       let options = this.element.querySelectorAll('option')

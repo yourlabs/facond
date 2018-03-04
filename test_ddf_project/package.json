@@ -8,7 +8,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1",
-    "django-dynamic-fields": "^0.2.18",
+    "django-dynamic-fields": "^0.2.19",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "materialize": "^1.0.0",
