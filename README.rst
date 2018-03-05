@@ -28,14 +28,14 @@ Resources
   <http://groups.google.com>`_
 - For **Security** issues, please contact yourlabs-security@googlegroups.com
 - `Git graciously hosted
-  <https://github.com/yourlabs/django-dynamic-fields/>`_ by `GitHub
+  <https://github.com/yourlabs/facond/>`_ by `GitHub
   <http://github.com>`_,
 - `Package graciously hosted
-  <http://pypi.python.org/pypi/django-dynamic-fields/>`_ by `PyPi
+  <http://pypi.python.org/pypi/facond/>`_ by `PyPi
   <http://pypi.python.org/pypi>`_,
 - `Continuous integration graciously hosted
-  <http://travis-ci.org/yourlabs/django-dynamic-fields>`_ by `Travis-ci
-  <http://travis-ci.org>`_
+  <http://circleci.com/gh/yourlabs/facond>`_ by `CircleCI
+  <http://circleci.com>`_
 - `**Online paid support** provided via HackHands
   <https://hackhands.com/jpic/>`_,
 
