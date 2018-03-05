@@ -1,6 +1,6 @@
 {
-  "name": "forms-actions-conditions",
-  "version": "0.3.0",
+  "name": "facond",
+  "version": "0.2.0",
   "description": "Simple pattern to make forms reactive",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourlabs/forms-actions-conditions.git"
+    "url": "git+https://github.com/yourlabs/facond.git"
   },
   "keywords": [
     "django"
@@ -19,9 +19,9 @@
   "author": "∞ <jpic@yourlabs.org>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/yourlabs/forms-actions-conditionss/issues"
+    "url": "https://github.com/yourlabs/facond/issues"
   },
-  "homepage": "https://github.com/yourlabs/forms-actions-conditions#readme",
+  "homepage": "https://github.com/yourlabs/facond#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "debug": "^3.1.0",
