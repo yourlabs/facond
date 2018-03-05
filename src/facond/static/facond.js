@@ -9949,6 +9949,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var log = (0, _debug2.default)('facond.form');
 
+/**
+ * Field
+ */
+
 var Field = function () {
   function Field(form, name) {
     _classCallCheck(this, Field);
@@ -10073,6 +10077,11 @@ var Field = function () {
 
   return Field;
 }();
+
+/**
+ * Form
+ */
+
 
 var Form = function () {
   // A Form matches the Form instance in Django, has a form htmlElement, a
@@ -10746,16 +10755,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var log = (0, _debug2.default)('facond.action');
 
 /**
- * Execute if conditions apply.
+ * Apply a reversible action on the DOM if conditions apply, unapply otherwise.
  */
 
 var Action = function () {
-  function Action(field, conditions) {
+  /**
+  * @param conditions List of :js:class:`Condition` objects
+  */
+  function Action(conditions) {
     _classCallCheck(this, Action);
 
-    this.field = field;
     this.conditions = conditions || [];
   }
+
+  /**
+   * Call :js:method:`apply()` if conditions validate, :js:method:`unapply` otherwise.
+   *
+   * @param form :js:class:`Form` object to execute on.
+   */
+
 
   _createClass(Action, [{
     key: 'execute',
@@ -10772,27 +10790,57 @@ var Action = function () {
       log(this, '.', method, '(', this.field, ')');
       this[method](form);
     }
+
+    /**
+     * Modify the DOM, should save the state for :js:method:`unapply()`.
+     */
+
+  }, {
+    key: 'apply',
+    value: function apply(form) {
+      'not implemented';
+    }
+
+    /**
+     * Restore the DOM prior to :js:method:`apply()` call.
+     */
+
+  }, {
+    key: 'unapply',
+    value: function unapply(form) {
+      'not implemented';
+    }
   }]);
 
   return Action;
 }();
 
-// Remove a field from a form.
+/**
+ * Remove a field from a form.
+ */
 
 
 var RemoveField = function (_Action) {
   _inherits(RemoveField, _Action);
 
-  function RemoveField() {
+  /**
+  * @param conditions List of :js:class:`Condition` objects
+  * @param :js:class:`Field` Subject Field instance.
+  */
+  function RemoveField(conditions, field) {
     _classCallCheck(this, RemoveField);
 
-    return _possibleConstructorReturn(this, (RemoveField.__proto__ || Object.getPrototypeOf(RemoveField)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (RemoveField.__proto__ || Object.getPrototypeOf(RemoveField)).call(this, conditions));
+
+    _this.field = field;
+    return _this;
   }
+
+  // Hide the field.
+
 
   _createClass(RemoveField, [{
     key: 'apply',
-
-    // Hide the field.
     value: function apply(form) {
       form.field(this.field).hide();
     }
@@ -10809,13 +10857,18 @@ var RemoveField = function (_Action) {
   return RemoveField;
 }(Action);
 
-// Remove given choices from a field.
+/**
+ * Remove given choices from a field.
+ */
 
 
 var RemoveChoices = function (_Action2) {
   _inherits(RemoveChoices, _Action2);
 
-  function RemoveChoices(field, conditions, choices) {
+  /**
+  * @param conditions List of :js:class:`Condition` objects
+  */
+  function RemoveChoices(conditions, field, choices) {
     _classCallCheck(this, RemoveChoices);
 
     var _this2 = _possibleConstructorReturn(this, (RemoveChoices.__proto__ || Object.getPrototypeOf(RemoveChoices)).call(this, conditions));
@@ -10903,9 +10956,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var log = (0, _debug2.default)('facond.rule');
 
-// Validate if a field has a given value.
+/**
+ * Validate if a field has a given value.
+ */
 
 var ValueIs = function () {
+  /**
+   * @param field Name of the field to test.
+   * @param value Value to test.
+   */
   function ValueIs(field, value) {
     _classCallCheck(this, ValueIs);
 
@@ -10913,7 +10972,9 @@ var ValueIs = function () {
     this.value = value;
   }
 
-  // Return true if the field's value is this.value
+  /**
+   * Return true if the field's value is this.value
+   */
 
 
   _createClass(ValueIs, [{
