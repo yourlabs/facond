@@ -1,7 +1,7 @@
 {
-  "name": "django-dynamic-fields",
-  "version": "0.2.19",
-  "description": "Dynamic fields for django forms",
+  "name": "reactive-forms",
+  "version": "0.3.0",
+  "description": "Simple plugin to make forms reactive",
   "main": "index.js",
   "scripts": {
     "test": "jest",

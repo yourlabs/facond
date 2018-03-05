@@ -1,7 +1,6 @@
-import * as form from './form'
-import * as action from './action'
-import * as rule from './rule'
-import * as condition from './condition'
+import * as forms from './forms'
+import * as actions from './actions'
+import * as conditions from './conditions'
 
 import debug from 'debug'
 
@@ -26,10 +25,9 @@ class JsDictClsRegistry {
 }
 
 var jsRegistry = window.jsRegistry = new JsDictClsRegistry()
-window.jsRegistry.register('ddf.action', action)
-window.jsRegistry.register('ddf.condition', condition)
-window.jsRegistry.register('ddf.form', form)
-window.jsRegistry.register('ddf.rule', rule)
+window.jsRegistry.register('ddf.actions', actions)
+window.jsRegistry.register('ddf.conditions', conditions)
+window.jsRegistry.register('ddf.forms', forms)
 
 function convert(value) {
   if (value === undefined || value === null) {
@@ -99,9 +97,8 @@ export {
   instanciate,
   jsRegistry,
   JsDictClsRegistry,
-  action,
-  condition,
-  form,
-  rule,
+  actions,
+  conditions,
+  forms,
   setup
 }

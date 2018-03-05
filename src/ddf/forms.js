@@ -138,8 +138,8 @@ class Form {
   update() {
     log('[Form] ', this, '.update()')
 
-    for (var i=0; i<this.rules.length; i++) {
-      this.rules[i].apply(this)
+    for (var i=0; i<this.actions.length; i++) {
+      this.actions[i].execute(this)
     }
   }
 }

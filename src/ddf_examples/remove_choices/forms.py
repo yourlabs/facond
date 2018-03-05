@@ -16,11 +16,10 @@ class TestForm(ddf.FormMixin, forms.Form):
         ('Format', 'Format'),
     ))
 
-    _ddf = dict(
-        service=[
-            ddf.RemoveChoices(
-                ['Support'],
-                ddf.ValueIs('platform', 'Windows'),
-            )
-        ]
-    )
+    ddf = ddf.ScriptField([
+        ddf.RemoveChoices(
+            'service',
+            ['Support'],
+            ddf.ValueIs('platform', 'Windows'),
+        )
+    ])

@@ -13,6 +13,7 @@
 <div style="display: inline-block; width: 49%; vertical-align:top;">
     {% block form %}
     <h2>{{ view.kwargs.app }} form example</h2>
+    {% if form.is_valid %}Valid !{% endif %}
     <form action="" method="post">
         {% csrf_token %}
 

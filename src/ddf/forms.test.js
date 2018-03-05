@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom'
-import { Field, Form } from './form'
+import { Field, Form } from './forms'
 
 let dom = new JSDOM(`
   <html><body><form>

@@ -9,14 +9,13 @@ Welcome to django-dynamic-fields documentation!
 Toc
 ---
 
-.. js:autoclass:: Rule
-   :members:
 
 .. toctree::
    :maxdepth: 2
 
    tutorial
    rule
+   action
    design
 
 Readme

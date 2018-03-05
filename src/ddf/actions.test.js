@@ -1,7 +1,7 @@
 import { JSDOM } from 'jsdom'
-import * as action from './action'
-import { Form } from './form'
-import { ValueIs } from './condition'
+import * as actions from './actions'
+import { Form } from './forms'
+import { ValueIs } from './conditions'
 
 describe('Action', () => {
   const dom = new JSDOM(`
@@ -14,7 +14,7 @@ describe('Action', () => {
   `)
 
   function makeAction() {
-    let a = new action.Action([new ValueIs('name', 'test')])
+    let a = new actions.Action('name', [new ValueIs('name', 'test')])
     a.apply = jest.fn()
     a.unapply = jest.fn()
     return a
@@ -22,11 +22,10 @@ describe('Action', () => {
 
   let formElement = dom.window.document.querySelector('form')
   let form = new Form(formElement)
-  let field = form.field('name')
 
   test('execute() -> unapply', () => {
     let a = makeAction()
-    a.execute(field)
+    a.execute(form)
     expect(a.unapply.mock.calls.length).toBe(1)
     expect(a.apply.mock.calls.length).toBe(0)
   })
@@ -34,7 +33,7 @@ describe('Action', () => {
   test('execute() -> apply', () => {
     let a = makeAction()
     formElement.querySelector('[name=name]').value = 'test'
-    a.execute(field)
+    a.execute(form)
     expect(a.unapply.mock.calls.length).toBe(0)
     expect(a.apply.mock.calls.length).toBe(1)
   })
@@ -62,16 +61,16 @@ describe('Remove', () => {
 
   test('apply()', () => {
     let field = makeField()
-    let a = new action.Remove()
-    a.apply(field)
+    let a = new actions.Remove()
+    a.apply(form)
     expect(field.hide.mock.calls.length).toEqual(1)
     expect(field.show.mock.calls.length).toEqual(0)
   })
 
   test('unapply()', () => {
     let field = makeField()
-    let a = new action.Remove()
-    a.unapply(field)
+    let a = new actions.Remove()
+    a.unapply(form)
     expect(field.show.mock.calls.length).toEqual(1)
     expect(field.hide.mock.calls.length).toEqual(0)
   })
@@ -92,8 +91,7 @@ describe('RemoveChoices', () => {
 
   let formElement = dom.window.document.querySelector('form')
   let form = new Form(formElement)
-  let field = form.field('name')
-  let a = new action.RemoveChoices([], ['a'])
+  let a = new actions.RemoveChoices([], ['a'])
 
   test('constructor()', () => {
     expect(a.choices).toEqual(['a'])
@@ -101,10 +99,10 @@ describe('RemoveChoices', () => {
   })
 
   test('apply()', () => {
-    a.apply(field)
+    a.apply(form)
   })
 
   test('unapply()', () => {
-    a.unapply(field)
+    a.unapply(form)
   })
 })

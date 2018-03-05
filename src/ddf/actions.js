@@ -2,49 +2,56 @@ import debug from 'debug'
 
 var log = debug('ddf.action')
 
+/**
+ * Execute if conditions apply.
+ */
 class Action {
-  constructor(conditions) {
+  constructor(field, conditions) {
+    this.field = field
     this.conditions = conditions || []
   }
 
-  execute(field) {
+  execute(form) {
     let method = 'apply'
 
     for (var i=0; i<this.conditions.length; i++) {
-      if (!this.conditions[i].validate(field.form)) {
+      if (!this.conditions[i].validate(form)) {
         method = 'unapply'
         break
       }
     }
 
-    log(this, '.', method, '(', field, ')')
-    this[method](field)
+    log(this, '.', method, '(', this.field, ')')
+    this[method](form)
   }
 }
 
 // Remove a field from a form.
 class Remove extends Action {
   // Hide the field.
-  apply(field) {
-    field.hide()
+  apply(form) {
+    form.field(this.field).hide()
   }
 
   // Show the field.
-  unapply(field) {
-    field.show()
+  unapply(form) {
+    form.field(this.field).show()
   }
 }
 
 // Remove given choices from a field.
 class RemoveChoices extends Action {
-  constructor(conditions, choices) {
+  constructor(field, conditions, choices) {
     super(conditions)
+    this.field = field
     this.choices = choices
   }
 
   // Hide options which are not in this.choices from a field.
-  apply(field) {
-    if (this.choices.indexOf(field.value) >= 0) {
+  apply(form) {
+    let field = form.field(this.field)
+
+    if (this.choices.indexOf(field).value >= 0) {
       field.valueReset()
     }
 
@@ -69,7 +76,9 @@ class RemoveChoices extends Action {
   }
 
   // Show options which are not in this.choices from a field.
-  unapply(field) {
+  unapply(form) {
+    let  field = form.field(this.field)
+
     for (let i=0; i < field.element.options.length; i++) {
       if (!this.choices.indexOf(field.element.options[i].value)) {
         field.element.options[i].classList.remove('ddf-hide')

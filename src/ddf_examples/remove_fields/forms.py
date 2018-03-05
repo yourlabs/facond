@@ -15,10 +15,9 @@ class TestForm(ddf.FormMixin, forms.Form):
     title = forms.CharField()
     name = forms.CharField()
 
-    _ddf = dict(
-        title=[
-            ddf.Remove(
-                ddf.ValueIs('kind', 'nonprofit'),
-            ),
-        ],
-    )
+    ddf = ddf.ScriptField([
+        ddf.Remove(
+            'title',
+            ddf.ValueIs('kind', 'nonprofit'),
+        ),
+    ])

@@ -9,22 +9,23 @@ from .js import JsDictMixin
 class Action(JsDictMixin):
     """An action to take on a list of fields."""
 
-    js_attrs = ['conditions']
+    js_attrs = ['field', 'conditions']
 
-    def __init__(self, *conditions):
+    def __init__(self, field, *conditions):
         """Instanciate with a list of condition to require."""
+        self.field = field
         self.conditions = conditions
 
-    def execute(self, field):
+    def execute(self, form):
         """Prevent the action from being applied if conditions don't pass."""
         for condition in self.conditions:
-            if not condition.validate(field.form):
+            if not condition.validate(form):
                 return
 
-        self.apply(field)
+        self.apply(form)
         return self
 
-    def apply(self, field):
+    def apply(self, form):
         """Actual application of the action on the form field."""
         raise NotImplemented()
 
@@ -35,10 +36,10 @@ class Action(JsDictMixin):
 class Remove(Action):
     """Remove fields from a form."""
 
-    def apply(self, field):
+    def apply(self, form):
         """Remove the field and data from field.form."""
-        self.original_keys = list(field.form.fields.keys())
-        self.original_field = field.form.fields.pop(field.name)
+        self.original_keys = list(form.fields.keys())
+        self.original_field = form.fields.pop(self.field)
         attr = self.original_field.widget.attrs.get('class', '')
         attr += ' ddf-hide'
         self.original_field.widget.attrs['class'] = attr
@@ -50,7 +51,7 @@ class Remove(Action):
             return
         fields = OrderedDict()
         for key in self.original_keys:
-            if key == original_field.name:
+            if key == self.field:
                 fields[key] = original_field
             elif key in form.fields:
                 fields[key] = form.fields[key]
@@ -60,23 +61,23 @@ class Remove(Action):
 class RemoveChoices(Action):
     """Remove choices from a choice field."""
 
-    js_attrs = ['conditions', 'choices']
+    js_attrs = ['field', 'choices', 'conditions']
 
-    def __init__(self, choices, *conditions):
+    def __init__(self, field, choices, *conditions):
         """List of choice values to remove if conditions pass."""
+        super(RemoveChoices, self).__init__(field, *conditions)
         self.choices = choices
-        super(RemoveChoices, self).__init__(*conditions)
 
-    def apply(self, field):
+    def apply(self, form):
         """Raise a ValidationError if the field value is in self.values."""
-        values = field.form.data.get(field.name, None)
+        values = form.data.get(self.field, None)
         if not isinstance(values, list):
             values = [values]
 
         for value in values:
             if value in self.choices:
                 raise forms.ValidationError(
-                    field.error_messages['invalid_choice'],
+                    form.fields[self.field].error_messages['invalid_choice'],
                     code='invalid_choice',
                     params={'value': value},
                 )

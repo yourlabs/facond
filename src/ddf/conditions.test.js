@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom'
-import { ValueIs } from './condition'
-import { Form } from './form'
+import { ValueIs } from './conditions'
+import { Form } from './forms'
 
 const dom = () => new JSDOM(`
 <html><body><form>

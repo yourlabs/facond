@@ -3,33 +3,28 @@ import { JSDOM } from 'jsdom'
 import * as ddf from './index'
 
 const formConfiguration = {
-  'cls': 'ddf.form.Form',
+  'cls': 'ddf.forms.Form',
   'prefix': '',
   'fields': {
     'title': {
-      'cls': 'ddf.form.Field',
+      'cls': 'ddf.forms.Field',
     },
     'name': {
-      'cls': 'ddf.form.Field',
+      'cls': 'ddf.forms.Field',
     },
     'kind': {
-      'cls': 'ddf.form.Field',
+      'cls': 'ddf.forms.Field',
     }
   },
-  'rules': [
+  'actions': [
     {
-      'cls': 'ddf.rule.Rule',
+      'cls': 'ddf.actions.Remove',
       'field': 'title',
-      'actions': [
+      'conditions': [
         {
-          'cls': 'ddf.action.Remove',
-          'conditions': [
-            {
-              'cls': 'ddf.condition.ValueIs',
-              'field': 'kind',
-              'value': 'nonprofit'
-            }
-          ]
+          'cls': 'ddf.conditions.ValueIs',
+          'field': 'kind',
+          'value': 'nonprofit'
         }
       ]
     }
@@ -61,15 +56,15 @@ describe('convert(single values)', () => {
     expect(ddf.convert({'foo': 'bar'})).toEqual({'foo': 'bar'})
   })
   test('instance', () => {
-    let expected = new ddf.form.Field()
-    expected.cls = 'ddf.form.Field'
-    expect(ddf.convert({'cls': 'ddf.form.Field'})).toEqual(expected)
+    let expected = new ddf.forms.Field()
+    expected.cls = 'ddf.forms.Field'
+    expect(ddf.convert({'cls': 'ddf.forms.Field'})).toEqual(expected)
   })
 })
 
 describe('convert(complex structure)', () => {
   let subject = {
-    'cls': 'ddf.form.Form',
+    'cls': 'ddf.forms.Form',
     'str': 'a',
     'int': 1,
     'null': null,
@@ -78,18 +73,18 @@ describe('convert(complex structure)', () => {
     'undefined': undefined,
     'list': [1],
     'dict': {1: 2},
-    'obj': {'cls': 'ddf.form.Field'},
+    'obj': {'cls': 'ddf.forms.Field'},
     'objlist': [
-      {'cls': 'ddf.form.Field'}
+      {'cls': 'ddf.forms.Field'}
     ],
     'objdict': {
-      foo: {'cls': 'ddf.form.Field'}
+      foo: {'cls': 'ddf.forms.Field'}
     }
   }
   let result = ddf.convert(subject)
 
   test('instanciate a cls', () => {
-    expect(result).toBeInstanceOf(ddf.form.Form)
+    expect(result).toBeInstanceOf(ddf.forms.Form)
   })
 
   test('with a list attribute', () => {
@@ -124,8 +119,8 @@ describe('convert(complex structure)', () => {
     expect(result.dict).toEqual({1: 2})
   })
 
-  let expected = new ddf.form.Field()
-  expected.cls = 'ddf.form.Field'
+  let expected = new ddf.forms.Field()
+  expected.cls = 'ddf.forms.Field'
 
   test('with an obj attribute', () => {
     expect(result.obj).toEqual(expected)
@@ -141,20 +136,17 @@ describe('convert(complex structure)', () => {
 })
 
 describe('JsDictClsRegistry.get()', () => {
-  test('ddf.form.Form', () => {
-    expect(ddf.jsRegistry.get('ddf.form.Form')).toBe(ddf.form.Form)
+  test('ddf.forms.Form', () => {
+    expect(ddf.jsRegistry.get('ddf.forms.Form')).toBe(ddf.forms.Form)
   })
-  test('ddf.action.Action', () => {
-    expect(ddf.jsRegistry.get('ddf.action.Action')).toBe(ddf.action.Action)
+  test('ddf.actions.Action', () => {
+    expect(ddf.jsRegistry.get('ddf.actions.Action')).toBe(ddf.actions.Action)
   })
-  test('ddf.action.Remove', () => {
-    expect(ddf.jsRegistry.get('ddf.action.Remove')).toBe(ddf.action.Remove)
+  test('ddf.actions.Remove', () => {
+    expect(ddf.jsRegistry.get('ddf.actions.Remove')).toBe(ddf.actions.Remove)
   })
-  test('ddf.condition.ValueIs', () => {
-    expect(ddf.jsRegistry.get('ddf.condition.ValueIs')).toBe(ddf.condition.ValueIs)
-  })
-  test('ddf.rule.Rule', () => {
-    expect(ddf.jsRegistry.get('ddf.rule.Rule')).toBe(ddf.rule.Rule)
+  test('ddf.conditions.ValueIs', () => {
+    expect(ddf.jsRegistry.get('ddf.conditions.ValueIs')).toBe(ddf.conditions.ValueIs)
   })
 })
 
@@ -163,14 +155,12 @@ describe('instanciate()', () => {
 
   test('should instanciate a recursive tree', () => {
     expect(result.prefix).toBe('')
-    expect(result.rules.length).toBe(1)
-    expect(result.rules[0].field).toBe('title')
-    expect(result.rules[0].actions.length).toBe(1)
-    expect(result.rules[0].actions[0].conditions.length).toBe(1)
-    expect(result.rules[0].actions[0].conditions[0].field).toBe('kind')
-    expect(result.rules[0].actions[0].conditions[0].value).toBe('nonprofit')
-    expect(result.fields['name']).toBeInstanceOf(ddf.form.Field)
-    expect(result.fields['title']).toBeInstanceOf(ddf.form.Field)
+    expect(result.actions.length).toBe(1)
+    expect(result.actions[0].conditions.length).toBe(1)
+    expect(result.actions[0].conditions[0].field).toBe('kind')
+    expect(result.actions[0].conditions[0].value).toBe('nonprofit')
+    expect(result.fields['name']).toBeInstanceOf(ddf.forms.Field)
+    expect(result.fields['title']).toBeInstanceOf(ddf.forms.Field)
   })
 })
 

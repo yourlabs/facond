@@ -1,21 +1,19 @@
 # flake8: noqa: F401,I202
 """Shortcuts, use: `from ddf import shortcuts as ddf` to feel awesome."""
 
-from .action import (
+from .actions import (
     Action,
     Remove,
     RemoveChoices,
 )
 
-from .condition import (
+from .conditions import (
     Condition,
     ValueIs,
 )
 
-from .form import (
-    ScriptField,
+from .forms import (
     FormMixin,
+    ScriptField,
     ScriptWidget,
 )
-
-from .rule import Rule

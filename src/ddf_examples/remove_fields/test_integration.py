@@ -33,41 +33,37 @@ def test_validates_choices():
 
 def test_js_dict():
     assert TestForm(prefix='test').js_dict() == {
-        'cls': 'ddf.form.Form',
+        'cls': 'ddf.forms.Form',
         'prefix': 'test',
         'fields': {
             'kind': {
-                'cls': 'ddf.form.Field',
-                'name': 'kind',
+                'cls': 'ddf.forms.Field',
+                'name': 'kind'
             },
             'title': {
-                'cls': 'ddf.form.Field',
-                'name': 'title',
+                'cls': 'ddf.forms.Field',
+                'name': 'title'
             },
             'name': {
-                'cls': 'ddf.form.Field',
-                'name': 'name',
-            },
+                'cls': 'ddf.forms.Field',
+                'name': 'name'
+            }
         },
-        'rules': [
+        'actions': [
             {
-                'cls': 'ddf.rule.Rule',
+                'cls': 'ddf.actions.Remove',
                 'field': 'title',
-                'actions': [
+                'conditions': [
                     {
-                        'cls': 'ddf.action.Remove',
-                        'conditions': [
-                            {
-                                'cls': 'ddf.condition.ValueIs',
-                                'field': 'kind',
-                                'value': 'nonprofit'
-                            }
-                        ]
+                        'cls': 'ddf.conditions.ValueIs',
+                        'field': 'kind',
+                        'value': 'nonprofit'
                     }
                 ]
             }
         ]
     }
+
 
 
 def test_removes_field_during_validation():
@@ -78,5 +74,4 @@ def test_removes_field_during_validation():
     ))
     assert form.is_valid()
     assert sorted(list(form.cleaned_data.keys())) == sorted(['kind', 'name'])
-    assert list(form.fields.keys()) == [
-        'kind', 'title', 'name', 'django_dynamic_fields']
+    assert list(form.fields.keys()) == ['kind', 'title', 'name', 'ddf']
