@@ -1,5 +1,4 @@
 sphinx
 sphinx-js
-sphinx-better-theme
 django
 -r ../src/facond_examples/requirements.txt

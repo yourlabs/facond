@@ -14,7 +14,6 @@
 
 import sys
 import os
-from better import better_theme_path
 
 js_source_path = '../src/facond/'
 
@@ -125,9 +124,16 @@ todo_include_todos = False
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'better'
-html_theme_path = [better_theme_path]
-
+# import guzzle_sphinx_theme
+#
+# html_theme_path = guzzle_sphinx_theme.html_theme_path()
+# html_theme = 'guzzle_sphinx_theme'
+# extensions.append("guzzle_sphinx_theme")
+# # Guzzle theme options (see theme.conf for more information)
+# html_theme_options = {
+#     # Set the name of the project to appear in the sidebar
+#     "project_nav_name": "Facond",
+# }
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
