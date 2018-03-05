@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom'
-import { ValueIs } from './conditions'
+import { ValueEqual } from './conditions'
 import { Form } from './forms'
 
 const dom = () => new JSDOM(`
@@ -11,10 +11,10 @@ const dom = () => new JSDOM(`
 </form></body></html>
 `)
 
-describe('ValueIs', () => {
+describe('ValueEqual', () => {
   let formElement = dom().window.document.querySelector('form')
   let form = new Form(formElement)
-  let condition = new ValueIs('name', 'test')
+  let condition = new ValueEqual('name', 'test')
 
   test('validate() -> false', () => {
     expect(condition.validate(form)).toBe(false)

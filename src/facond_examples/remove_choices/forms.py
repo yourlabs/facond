@@ -19,7 +19,7 @@ class TestForm(facond.Form, forms.Form):
 
     facond_actions = [
         facond.RemoveChoices(
-            [facond.ValueIs('platform', 'Windows')],
+            [facond.ValueEqual('platform', 'Windows')],
             'service',
             ['Support'],
         )

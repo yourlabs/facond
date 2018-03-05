@@ -20,17 +20,17 @@ Python
 
 .. _valueis:
 
-``ValueIs``
+``ValueEqual``
 ===========
 
 JavaScript
 ----------
 
-.. js:autoclass:: ValueIs
+.. js:autoclass:: ValueEqual
    :members:
 
 Python
 ------
 
-.. autoclass:: facond.conditions.ValueIs
+.. autoclass:: facond.conditions.ValueEqual
    :members:

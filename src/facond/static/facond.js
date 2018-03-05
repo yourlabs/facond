@@ -10760,7 +10760,7 @@ var log = (0, _debug2.default)('facond.action');
 
 var Action = function () {
   /**
-  * @param conditions List of :js:class:`Condition` objects
+  * @param conditions List of :js:cls:`Condition` objects
   */
   function Action(conditions) {
     _classCallCheck(this, Action);
@@ -10769,7 +10769,7 @@ var Action = function () {
   }
 
   /**
-   * Call :js:method:`apply()` if conditions validate, :js:method:`unapply` otherwise.
+   * Call :js:meth:`apply()` if conditions validate, :js:meth:`unapply` otherwise.
    *
    * @param form :js:class:`Form` object to execute on.
    */
@@ -10792,22 +10792,28 @@ var Action = function () {
     }
 
     /**
-     * Modify the DOM, should save the state for :js:method:`unapply()`.
+     * Modify the DOM, should save the state for :js:meth:`unapply()`.
+     *
+     * @param form :js:class:`Form` object to apply on.
      */
 
   }, {
     key: 'apply',
     value: function apply(form) {
+      // eslint-disable-line no-unused-vars
       'not implemented';
     }
 
     /**
-     * Restore the DOM prior to :js:method:`apply()` call.
+     * Restore the DOM prior to :js:meth:`apply()` call.
+     *
+     * @param form :js:class:`Form` object to unapply on.
      */
 
   }, {
     key: 'unapply',
     value: function unapply(form) {
+      // eslint-disable-line no-unused-vars
       'not implemented';
     }
   }]);
@@ -10942,7 +10948,7 @@ exports.RemoveField = RemoveField;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ValueIs = undefined;
+exports.ValueEqual = exports.Condition = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -10957,16 +10963,43 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var log = (0, _debug2.default)('facond.rule');
 
 /**
+ * Condition interface.
+ */
+
+var Condition = function () {
+  function Condition() {
+    _classCallCheck(this, Condition);
+  }
+
+  _createClass(Condition, [{
+    key: 'validate',
+
+    /**
+     * Return true if this condition passes on this form.
+     *
+     * @param form :js:class:`Form` object to execute on.
+     */
+    value: function validate(form) {
+      // eslint-disable-line no-unused-vars
+      'not implemented';
+    }
+  }]);
+
+  return Condition;
+}();
+
+/**
  * Validate if a field has a given value.
  */
 
-var ValueIs = function () {
+
+var ValueEqual = function () {
   /**
    * @param field Name of the field to test.
    * @param value Value to test.
    */
-  function ValueIs(field, value) {
-    _classCallCheck(this, ValueIs);
+  function ValueEqual(field, value) {
+    _classCallCheck(this, ValueEqual);
 
     this.field = field;
     this.value = value;
@@ -10977,7 +11010,7 @@ var ValueIs = function () {
    */
 
 
-  _createClass(ValueIs, [{
+  _createClass(ValueEqual, [{
     key: 'validate',
     value: function validate(form) {
       var valid = form.field(this.field).value == this.value;
@@ -10986,10 +11019,11 @@ var ValueIs = function () {
     }
   }]);
 
-  return ValueIs;
+  return ValueEqual;
 }();
 
-exports.ValueIs = ValueIs;
+exports.Condition = Condition;
+exports.ValueEqual = ValueEqual;
 
 /***/ })
 /******/ ]);

@@ -10,7 +10,7 @@ class Condition(JsDictMixin):
         """Return True if the form passes this condition."""
 
 
-class ValueIs(Condition):
+class ValueEqual(Condition):
     """Rule that passes if a field has an arbitrary value."""
 
     def __init__(self, field, value):

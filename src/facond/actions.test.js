@@ -1,7 +1,7 @@
 import { JSDOM } from 'jsdom'
 import * as actions from './actions'
 import { Form } from './forms'
-import { ValueIs } from './conditions'
+import { ValueEqual } from './conditions'
 
 describe('Action', () => {
   const dom = new JSDOM(`
@@ -14,7 +14,7 @@ describe('Action', () => {
   `)
 
   function makeAction() {
-    let a = new actions.Action([new ValueIs('name', 'test')])
+    let a = new actions.Action([new ValueEqual('name', 'test')])
     a.apply = jest.fn()
     a.unapply = jest.fn()
     return a

@@ -64,7 +64,7 @@ We want to ensure this behaves properly during initial rendering,
 validation, rerendering, and of course live in the browser.
 
 For this, we define an Action ``RemoveChoices('service', ['support'])`` with a
-Condition ``ValueIs('platform', 'windows')``.
+Condition ``ValueEqual('platform', 'windows')``.
 
 Getting started
 ===============
@@ -85,7 +85,7 @@ Then, import the lib and bind some action on a form::
     let form = new facond.Form(
         document.querySelector('#your-form'),  # form HTMLElement
         new facond.RemoveChoices(
-            [new facond.ValueIs('platform', 'windows')],
+            [new facond.ValueEqual('platform', 'windows')],
             'service',
             ['Support'],
         )]
@@ -114,7 +114,7 @@ the admin, even after Django 2.0::
 
         facond = [
             facond.RemoveChoices(
-                [facond.ValueIs('platform', 'Windows')],
+                [facond.ValueEqual('platform', 'Windows')],
                 'service',
                 ['Support'],
             )

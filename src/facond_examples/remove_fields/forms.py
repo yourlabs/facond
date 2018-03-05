@@ -17,7 +17,7 @@ class TestForm(facond.Form, forms.Form):
 
     facond_actions = [
         facond.RemoveField(
-            [facond.ValueIs('kind', 'nonprofit')],
+            [facond.ValueEqual('kind', 'nonprofit')],
             'title',
         ),
     ]

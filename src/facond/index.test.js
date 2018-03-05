@@ -22,7 +22,7 @@ const formConfiguration = {
       'field': 'title',
       'conditions': [
         {
-          'cls': 'facond.conditions.ValueIs',
+          'cls': 'facond.conditions.ValueEqual',
           'field': 'kind',
           'value': 'nonprofit'
         }
@@ -145,8 +145,8 @@ describe('JsDictClsRegistry.get()', () => {
   test('facond.actions.RemoveField', () => {
     expect(facond.jsRegistry.get('facond.actions.RemoveField')).toBe(facond.actions.RemoveField)
   })
-  test('facond.conditions.ValueIs', () => {
-    expect(facond.jsRegistry.get('facond.conditions.ValueIs')).toBe(facond.conditions.ValueIs)
+  test('facond.conditions.ValueEqual', () => {
+    expect(facond.jsRegistry.get('facond.conditions.ValueEqual')).toBe(facond.conditions.ValueEqual)
   })
 })
 

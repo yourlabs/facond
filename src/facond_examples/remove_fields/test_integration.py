@@ -55,7 +55,7 @@ def test_js_dict():
                 'field': 'title',
                 'conditions': [
                     {
-                        'cls': 'facond.conditions.ValueIs',
+                        'cls': 'facond.conditions.ValueEqual',
                         'field': 'kind',
                         'value': 'nonprofit'
                     }

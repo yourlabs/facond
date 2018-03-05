@@ -9,7 +9,7 @@ from .actions import (
 
 from .conditions import (
     Condition,
-    ValueIs,
+    ValueEqual,
 )
 
 from .forms import (

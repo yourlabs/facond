@@ -20,7 +20,7 @@ class Condition {
 /**
  * Validate if a field has a given value.
  */
-class ValueIs {
+class ValueEqual {
   /**
    * @param field Name of the field to test.
    * @param value Value to test.
@@ -42,5 +42,5 @@ class ValueIs {
 
 export {
   Condition,
-  ValueIs,
+  ValueEqual,
 }
