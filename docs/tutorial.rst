@@ -84,10 +84,10 @@ Then, import the lib and bind some action on a form::
 
     let form = new facond.Form(
         document.querySelector('#your-form'),  # form HTMLElement
-        new ddf.RemoveChoices(
+        new facond.RemoveChoices(
+            [new facond.ValueIs('platform', 'windows')],
             'service',
             ['Support'],
-            new ddf.ValueIs('platform', 'windows')
         )]
     )
 
@@ -114,9 +114,9 @@ the admin, even after Django 2.0::
 
         facond = [
             facond.RemoveChoices(
+                [facond.ValueIs('platform', 'Windows')],
                 'service',
                 ['Support'],
-                facond.ValueIs('platform', 'Windows'),
             )
         ]
 
