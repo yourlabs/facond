@@ -1,12 +1,12 @@
 Welcome to Facond (Form/Action/Condition) documentation!
 ========================================================
 
-Toc
----
+Contents
+--------
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    tutorial
    forms
