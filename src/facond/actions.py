@@ -19,7 +19,6 @@ class Action(JsDictMixin):
     conditions against the :py:cls:`~facond.forms.Form` instance it is passed.
     """
 
-
     js_attrs = ['field', 'conditions']
 
     def __init__(self, conditions):
@@ -47,6 +46,7 @@ class RemoveField(Action):
     """Remove fields from a form."""
 
     def __init__(self, conditions, field):
+        """Remove a field if conditions validate."""
         super(RemoveField, self).__init__(conditions)
         self.field = field
 

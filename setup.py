@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name='facond',
-    version='0.3.0',
+    version='0.3.1',
     description='Reactive forms with actions and conditions',
     author='James Pic',
     author_email='jpic@yourlabs.org',

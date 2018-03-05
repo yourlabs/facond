@@ -35,14 +35,14 @@ class Action {
   /**
    * Modify the DOM, should save the state for :js:method:`unapply()`.
    */
-  apply(form) {
+  apply(form) { // eslint-disable-line no-unused-vars
     'not implemented'
   }
 
   /**
    * Restore the DOM prior to :js:method:`apply()` call.
    */
-  unapply(form) {
+  unapply(form) { // eslint-disable-line no-unused-vars
     'not implemented'
   }
 }
