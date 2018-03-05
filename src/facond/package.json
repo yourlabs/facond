@@ -1,6 +1,6 @@
 {
   "name": "facond",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Simple pattern to make forms reactive",
   "main": "index.js",
   "scripts": {
@@ -45,7 +45,8 @@
       "/node_modules/"
     ],
     "collectCoverageFrom": [
-      "*{js,jsx}"
+      "*{js,jsx}",
+      "webpack.config.js"
     ]
   }
 }
