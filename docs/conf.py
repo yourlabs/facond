@@ -16,6 +16,8 @@ import sys
 import os
 from better import better_theme_path
 
+js_source_path = '../src/ddf/'
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -39,6 +41,7 @@ django.setup()
 # ones.
 extensions = [
     'djangodocs',
+    'sphinx_js',
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
