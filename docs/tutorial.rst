@@ -9,25 +9,30 @@ The pattern inside
 
 This app provides an implementation of a simple pattern to make dynamic forms:
 
-- a Form has a list of Action, such as RemoveChoices,
-- an Action has a list of Condition, such as ValueIs.
+- a :doc:`Form<forms>` has a list of :doc:`Action<actions>`, such as :ref:`removechoices`,
+- an :doc:`Action<actions>` has a list of :doc:`Condition<conditions>`, such as :ref:`valueis`.
 
 You can use client side, server side, or both, in which case server side
 controls the client side (write only python).
 
 On the client side, it will attach to input events on the form to execute
-actions by calling Action.execute(form) which will:
+actions by calling :js:meth:`Action.execute(form)<Action.execute>` which will:
 
-- call Action.apply(form) when all conditions validate on the form,
-- call Action.unapply(form) when at least one condition fails to validate.
+- call :js:meth:`Action.apply(form)<Action.apply>` when all conditions validate
+  on the form,
+- call :js:meth:`Action.unapply(form)<Action.unapply>` when at least one
+  condition fails to validate.
 
-On the server side, it will call Action.execute(form) before validation which
-will:
+On the server side, it will call
+:py:meth:`Condition.validate(form)<facond.conditions.Condition.validate>`
+before validation which will:
 
-- call Action.apply(form) when all Condition validate on the form,
-- call Action.unapply(form) for each condition that has been applied, but it's
-  just to restore enough for redisplay of the form, there's no need to unapply
-  everything.
+- call :py:meth:`Action.apply(form)<facond.actions.Action.apply>` when all
+  :py:meth:`Condition.validate(form)<facond.conditions.Condition.validate>`
+  return True,
+- call :py:meth:`Action.unapply(form)<facond.actions.Action.unapply>` for each
+  condition that has been applied, but it's just to restore enough for
+  redisplay of the form, there's no need to unapply everything.
 
 Example
 -------

@@ -9,15 +9,13 @@
 .. image:: https://img.shields.io/pypi/v/facond.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/facond
 
-Run the project
-===============
+Demo
+====
 
-Run::
+Run the demo which uses Django server side::
 
     pip install --user facond[demo]
-    facond runserver
-
-Yes, seriously.
+    ~/.local/bin/facond runserver
 
 Resources
 =========

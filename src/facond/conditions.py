@@ -6,6 +6,9 @@ from .js import JsDictMixin
 class Condition(JsDictMixin):
     """Base condition."""
 
+    def validate(self, form):
+        """Return True if the form passes this condition."""
+
 
 class ValueIs(Condition):
     """Rule that passes if a field has an arbitrary value."""

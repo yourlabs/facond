@@ -18,6 +18,8 @@ Python
 .. autoclass:: facond.actions.Action
    :members:
 
+.. _removechoices:
+
 RemoveChoices
 =============
 

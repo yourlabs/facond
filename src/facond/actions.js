@@ -7,14 +7,14 @@ var log = debug('facond.action')
  */
 class Action {
   /**
-  * @param conditions List of :js:class:`Condition` objects
+  * @param conditions List of :js:cls:`Condition` objects
   */
   constructor(conditions) {
     this.conditions = conditions || []
   }
 
   /**
-   * Call :js:method:`apply()` if conditions validate, :js:method:`unapply` otherwise.
+   * Call :js:meth:`apply()` if conditions validate, :js:meth:`unapply` otherwise.
    *
    * @param form :js:class:`Form` object to execute on.
    */
@@ -33,14 +33,18 @@ class Action {
   }
 
   /**
-   * Modify the DOM, should save the state for :js:method:`unapply()`.
+   * Modify the DOM, should save the state for :js:meth:`unapply()`.
+   *
+   * @param form :js:class:`Form` object to apply on.
    */
   apply(form) { // eslint-disable-line no-unused-vars
     'not implemented'
   }
 
   /**
-   * Restore the DOM prior to :js:method:`apply()` call.
+   * Restore the DOM prior to :js:meth:`apply()` call.
+   *
+   * @param form :js:class:`Form` object to unapply on.
    */
   unapply(form) { // eslint-disable-line no-unused-vars
     'not implemented'

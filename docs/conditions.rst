@@ -3,8 +3,25 @@ Conditions
 
 .. automodule:: facond.conditions
 
-ValueIs
-=======
+``Condition``
+=============
+
+JavaScript
+----------
+
+.. js:autoclass:: Condition
+   :members:
+
+Python
+------
+
+.. autoclass:: facond.conditions.Condition
+   :members:
+
+.. _valueis:
+
+``ValueIs``
+===========
 
 JavaScript
 ----------

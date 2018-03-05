@@ -2,6 +2,21 @@ import debug from 'debug'
 
 var log = debug('facond.rule')
 
+
+/**
+ * Condition interface.
+ */
+class Condition {
+  /**
+   * Return true if this condition passes on this form.
+   *
+   * @param form :js:class:`Form` object to execute on.
+   */
+  validate(form) {
+    'not implemented'
+  }
+}
+
 /**
  * Validate if a field has a given value.
  */
