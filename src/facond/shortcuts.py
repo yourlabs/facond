@@ -13,7 +13,7 @@ from .conditions import (
 )
 
 from .forms import (
-    FormMixin,
+    Form,
     ScriptField,
     ScriptWidget,
 )

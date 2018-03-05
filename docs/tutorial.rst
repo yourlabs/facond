@@ -100,7 +100,7 @@ Then all you need to do is use the ``facond.FormMixin`` on a form with a
 ``facond.ScriptField`` which contains the actions definitions in Python, and JS
 will be taken care of automagically as long as you render ``{{ form.media }}``
 - it has no dependency to jquery or anything else, which means it works out of
-  the box in the admin::
+the box in the admin::
 
     from facond import shortcuts as facond
     from django import forms

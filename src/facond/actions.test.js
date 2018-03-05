@@ -14,7 +14,7 @@ describe('Action', () => {
   `)
 
   function makeAction() {
-    let a = new actions.Action('name', [new ValueIs('name', 'test')])
+    let a = new actions.Action([new ValueIs('name', 'test')])
     a.apply = jest.fn()
     a.unapply = jest.fn()
     return a

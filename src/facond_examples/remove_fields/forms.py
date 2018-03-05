@@ -5,7 +5,7 @@ from django import forms
 from facond import shortcuts as facond
 
 
-class TestForm(facond.FormMixin, forms.Form):
+class TestForm(facond.Form, forms.Form):
     """Add a rule on title, for action to remove itself depending on kind."""
 
     kind = forms.ChoiceField(choices=(
@@ -17,7 +17,7 @@ class TestForm(facond.FormMixin, forms.Form):
 
     facond = facond.ScriptField([
         facond.RemoveField(
+            [facond.ValueIs('kind', 'nonprofit')],
             'title',
-            facond.ValueIs('kind', 'nonprofit'),
         ),
     ])

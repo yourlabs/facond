@@ -1,4 +1,9 @@
-"""Actions on form."""
+"""
+An Action may apply reversible modifications of a django Form.
+
+It should always take a list of :py:cls:`~facond.conditions.Condition` as first
+argument, and then whatever it's going to need to work.
+"""
 from collections import OrderedDict
 
 from django import forms
@@ -7,13 +12,18 @@ from .js import JsDictMixin
 
 
 class Action(JsDictMixin):
-    """An action to take on a list of fields."""
+    """An action to take on a list of fields.
+
+    The :py:meth:`~Action.execute()` will first execute
+    :py:meth:`~facond.conditions.Condition.validate()` for every of its
+    conditions against the :py:cls:`~facond.forms.Form` instance it is passed.
+    """
+
 
     js_attrs = ['field', 'conditions']
 
-    def __init__(self, field, *conditions):
+    def __init__(self, conditions):
         """Instanciate with a list of condition to require."""
-        self.field = field
         self.conditions = conditions
 
     def execute(self, form):
@@ -35,6 +45,10 @@ class Action(JsDictMixin):
 
 class RemoveField(Action):
     """Remove fields from a form."""
+
+    def __init__(self, conditions, field):
+        super(RemoveField, self).__init__(conditions)
+        self.field = field
 
     def apply(self, form):
         """Remove the field and data from field.form."""
@@ -63,9 +77,10 @@ class RemoveChoices(Action):
 
     js_attrs = ['field', 'choices', 'conditions']
 
-    def __init__(self, field, choices, *conditions):
+    def __init__(self, conditions, field, choices):
         """List of choice values to remove if conditions pass."""
-        super(RemoveChoices, self).__init__(field, *conditions)
+        super(RemoveChoices, self).__init__(conditions)
+        self.field = field
         self.choices = choices
 
     def apply(self, form):

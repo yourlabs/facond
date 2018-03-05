@@ -5,7 +5,7 @@ from django import forms
 from facond import shortcuts as facond
 
 
-class TestForm(facond.FormMixin, forms.Form):
+class TestForm(facond.Form, forms.Form):
     """Remove the Support option for windows, sorry :)."""
 
     platform = forms.ChoiceField(choices=(
@@ -19,8 +19,8 @@ class TestForm(facond.FormMixin, forms.Form):
 
     facond = facond.ScriptField([
         facond.RemoveChoices(
+            [facond.ValueIs('platform', 'Windows')],
             'service',
             ['Support'],
-            facond.ValueIs('platform', 'Windows'),
         )
     ])

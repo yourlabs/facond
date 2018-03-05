@@ -40,7 +40,7 @@ class ScriptWidget(forms.Widget):
         return True
 
 
-class FormMixin(JsDictMixin):
+class Form(JsDictMixin):
     """Hook into full_clean to apply rules before full_clean."""
 
     js_class = 'facond.forms.Form'
@@ -52,7 +52,7 @@ class FormMixin(JsDictMixin):
 
     def __init__(self, *args, **kwargs):
         """Add a Field with the configuration and set field.form."""
-        super(FormMixin, self).__init__(*args, **kwargs)
+        super(Form, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
             if isinstance(field, ScriptField):
@@ -68,7 +68,7 @@ class FormMixin(JsDictMixin):
                 applied.append(action)
 
         facond = self.fields.pop(self.facond_field_name)
-        result = super(FormMixin, self).full_clean()
+        result = super(Form, self).full_clean()
         self.fields[self.facond_field_name] = facond
 
         for action in applied:

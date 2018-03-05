@@ -3,14 +3,21 @@ import debug from 'debug'
 var log = debug('facond.action')
 
 /**
- * Execute if conditions apply.
+ * Apply a reversible action on the DOM if conditions apply, unapply otherwise.
  */
 class Action {
-  constructor(field, conditions) {
-    this.field = field
+  /**
+  * @param conditions List of :js:class:`Condition` objects
+  */
+  constructor(conditions) {
     this.conditions = conditions || []
   }
 
+  /**
+   * Call :js:method:`apply()` if conditions validate, :js:method:`unapply` otherwise.
+   *
+   * @param form :js:class:`Form` object to execute on.
+   */
   execute(form) {
     let method = 'apply'
 
@@ -24,10 +31,35 @@ class Action {
     log(this, '.', method, '(', this.field, ')')
     this[method](form)
   }
+
+  /**
+   * Modify the DOM, should save the state for :js:method:`unapply()`.
+   */
+  apply(form) {
+    'not implemented'
+  }
+
+  /**
+   * Restore the DOM prior to :js:method:`apply()` call.
+   */
+  unapply(form) {
+    'not implemented'
+  }
 }
 
-// Remove a field from a form.
+/**
+ * Remove a field from a form.
+ */
 class RemoveField extends Action {
+  /**
+  * @param conditions List of :js:class:`Condition` objects
+  * @param :js:class:`Field` Subject Field instance.
+  */
+  constructor(conditions, field) {
+    super(conditions)
+    this.field = field
+  }
+
   // Hide the field.
   apply(form) {
     form.field(this.field).hide()
@@ -39,9 +71,14 @@ class RemoveField extends Action {
   }
 }
 
-// Remove given choices from a field.
+/**
+ * Remove given choices from a field.
+ */
 class RemoveChoices extends Action {
-  constructor(field, conditions, choices) {
+  /**
+  * @param conditions List of :js:class:`Condition` objects
+  */
+  constructor(conditions, field, choices) {
     super(conditions)
     this.field = field
     this.choices = choices

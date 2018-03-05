@@ -11,12 +11,13 @@ Toc
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    tutorial
-   rule
-   action
-   design
+   forms
+   actions
+   conditions
+   examples
 
 Readme
 ------

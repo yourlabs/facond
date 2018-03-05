@@ -2,6 +2,9 @@ import debug from 'debug'
 
 var log = debug('facond.form')
 
+/**
+ * Field
+ */
 class Field {
   constructor(form, name) {
     this.form = form
@@ -93,6 +96,9 @@ class Field {
   }
 }
 
+/**
+ * Form
+ */
 class Form {
   // A Form matches the Form instance in Django, has a form htmlElement, a
   // prefix and rules.
