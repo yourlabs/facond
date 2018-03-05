@@ -24,6 +24,10 @@ setup(
             'facond = facond_examples.manage:main',
         ],
     },
+    extras_require=dict(
+        django=['django>=2.0'],
+        demo=['django>=2.0', 'django-material>=1.2.2'],
+    ),
     classifiers=[
         'Development Status :: 1 - Planning',
         'Environment :: Web Environment',

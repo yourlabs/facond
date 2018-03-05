@@ -11,14 +11,12 @@
 Run the project
 ===============
 
-Run:
+Run::
 
-    pip install --user -e git+https://github.com/yourlabs/django-dynamic-fields.git#egg=django-dynamic-fields
-    cd ~/.local/src/django-dynamic-fields/src/ddf_examples
-    yarn install  # sudo npm install -g yarn if necessary ;)
-    yarn prepare  # or use yarn start to start webpack with --watch
-    pip install --user -r requirements.txt
-    ddf_examples runserver  # open localhost:8000, don't worry bout migrations ;)
+    pip install --user facond[demo]
+    facond runserver
+
+Yes, seriously.
 
 Resources
 =========

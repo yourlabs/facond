@@ -1,6 +1,6 @@
 {
   "name": "facond",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Simple pattern to make forms reactive",
   "main": "index.js",
   "scripts": {
