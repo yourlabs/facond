@@ -36,7 +36,7 @@ class Action(JsDictMixin):
 
     def apply(self, form):
         """Actual application of the action on the form field."""
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def unapply(self, form):
         """Revert apply() action."""
