@@ -96,26 +96,24 @@ JS::
 
     pip install facond
 
-Then all you need to do is use the ``facond.Form`` on a form with a
-``facond.ScriptField`` which contains the actions definitions in Python, and JS
-will be taken care of automagically as long as you render ``{{ form.media }}``
-- it has no dependency to jquery or anything else, which means it works out of
-the box in the admin::
+Then all you need to do is use the ``facond.Form`` with ``facond_actions`` for
+list of :py:class:`~facond.actions.Action` in Python, and JS will be taken care
+of automagically as long as you render ``{{ form.media }}`` - it has no
+dependency to jquery or anything else, which means it works out of the box in
+the admin, even after Django 2.0::
 
     from facond import shortcuts as facond
-    from django import forms
-
-    class TestForm(facond.Form, forms.Form):
+    from django import forms class TestForm(facond.Form, forms.Form):
         platform = PlatformChoiceField()
         service = ServiceChoiceField()
 
-        facond = facond.ScriptField([
+        facond = [
             facond.RemoveChoices(
                 'service',
                 ['Support'],
                 facond.ValueIs('platform', 'Windows'),
             )
-        ])
+        ]
 
 This should just work.
 

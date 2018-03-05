@@ -15,9 +15,9 @@ class TestForm(facond.Form, forms.Form):
     title = forms.CharField()
     name = forms.CharField()
 
-    facond = facond.ScriptField([
+    facond_actions = [
         facond.RemoveField(
             [facond.ValueIs('kind', 'nonprofit')],
             'title',
         ),
-    ])
+    ]

@@ -1,4 +1,12 @@
-"""Form configuration and entry point."""
+"""
+Form objects are what the Action and Condition use.
+
+Action objects have ``execute(form)`` against Form objects, and Condition
+objects have ``validate(form)`` to validate against a Form.
+
+See respective documentations for more information about what this does client
+and server side.
+"""
 
 import json
 
@@ -31,7 +39,7 @@ class ScriptWidget(forms.Widget):
         """Render a script tag with JSON configuration."""
         return mark_safe(''.join((
             '<script type="text/facond-configuration">',
-            json.dumps(self.form.js_dict()),
+            json.dumps(self.data),
             '</script>',
         )))
 
@@ -43,6 +51,7 @@ class ScriptWidget(forms.Widget):
 class Form(JsDictMixin):
     """Hook into full_clean to apply rules before full_clean."""
 
+    facond_field_name = 'facond_script'
     js_class = 'facond.forms.Form'
 
     class Media:
@@ -53,12 +62,7 @@ class Form(JsDictMixin):
     def __init__(self, *args, **kwargs):
         """Add a Field with the configuration and set field.form."""
         super(Form, self).__init__(*args, **kwargs)
-
-        for name, field in self.fields.items():
-            if isinstance(field, ScriptField):
-                field.widget.form = self  # to render fields
-                self.facond_field_name = name
-                self.facond_actions = field.widget.data
+        self.fields[self.facond_field_name] = ScriptField(self.js_dict())
 
     def full_clean(self):
         """Apply each rule during validation, and then unapply them."""

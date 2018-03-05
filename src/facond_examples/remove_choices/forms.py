@@ -17,10 +17,10 @@ class TestForm(facond.Form, forms.Form):
         ('Format', 'Format'),
     ))
 
-    facond = facond.ScriptField([
+    facond_actions = [
         facond.RemoveChoices(
             [facond.ValueIs('platform', 'Windows')],
             'service',
             ['Support'],
         )
-    ])
+    ]

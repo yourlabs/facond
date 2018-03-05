@@ -74,4 +74,5 @@ def test_removes_field_during_validation():
     ))
     assert form.is_valid()
     assert sorted(list(form.cleaned_data.keys())) == sorted(['kind', 'name'])
-    assert list(form.fields.keys()) == ['kind', 'title', 'name', 'facond']
+    assert list(form.fields.keys()) == [
+        'kind', 'title', 'name', 'facond_script']
