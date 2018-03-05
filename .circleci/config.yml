@@ -14,7 +14,7 @@ workflows:
 jobs:
   docs:
     docker:
-    - image: circleci/python:3.6
+    - image: circleci/node:9
     steps:
     - checkout
     - restore_cache:
@@ -22,7 +22,7 @@ jobs:
         - qa-dependencies-{{ checksum "tox.ini" }}
     - run:
         name: tox environment setup
-        command: pip install --user tox && ~/.local/bin/tox -r -e docs --notest
+        command: apt install -y python-tox && npm install -g jsdoc && ~/.local/bin/tox -r -e docs --notest
     - save_cache:
         paths: [~/.local, ~/.cache/pip]
         key: qa-dependencies-{{ checksum "tox.ini" }}
