@@ -1,12 +1,13 @@
-.. image:: https://img.shields.io/pypi/dm/django-dynamic-fields.svg
-   :target: https://pypi.python.org/pypi/django-dynamic-fields
-.. image:: https://secure.travis-ci.org/yourlabs/django-dynamic-fields.png?branch=master
-    :target: http://travis-ci.org/yourlabs/django-dynamic-fields
-.. image:: https://codecov.io/github/yourlabs/django-dynamic-fields/coverage.svg?branch=master
-    :target: https://codecov.io/github/yourlabs/django-dynamic-fields?branch=master
-.. image:: https://readthedocs.org/projects/django-dynamic-fields/badge/?version=develop
-    :target: http://django-dynamic-fields.readthedocs.io/en/develop/?badge=develop
-    :alt: Documentation status
+.. image:: https://img.shields.io/readthedocs/facond.svg?style=for-the-badge
+   :target: https://facond.readthedocs.io
+.. image:: https://img.shields.io/circleci/project/github/yourlabs/facond/master.svg?style=for-the-badge
+   :target: https://circleci.com/gh/yourlabs/facond
+.. image:: https://img.shields.io/codecov/c/github/yourlabs/facond/master.svg?style=for-the-badge
+   :target: https://codecov.io/gh/yourlabs/facond
+.. image:: https://img.shields.io/npm/v/facond.svg?style=for-the-badge
+   :target: https://www.npmjs.com/package/facond
+.. image:: https://img.shields.io/pypi/v/facond.svg?style=for-the-badge
+   :target: https://pypi.python.org/pypi/facond
 
 Run the project
 ===============
@@ -22,7 +23,7 @@ Resources
 =========
 
 - `**Documentation** graciously hosted
-  <http://django-dynamic-fields.rtfd.org>`_ by `RTFD
+  <http://facond.readthedocs.io>`_ by `RTFD
   <http://rtfd.org>`_
 - `Mailing list graciously hosted
   <http://groups.google.com/group/yourlabs>`_ by `Google
