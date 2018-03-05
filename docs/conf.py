@@ -62,7 +62,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'django-dynamic-fields'
+project = u'facond'
 copyright = u'2016, James Pic'
 author = u'James Pic'
 
@@ -242,7 +242,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'django-dynamic-fields.tex', u'Django Dynamic Fields Documentation',
+    (master_doc, 'facond.tex', u'Facond (Form/Action/Condition) Documentation',
      u'James Pic', 'manual'),
 ]
 
@@ -272,7 +272,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'django-dynamic-fields', u'django-dynamic-fields Documentation',
+    (master_doc, 'facond', u'Facond (Form/Action/Condition) Documentation',
      [author], 1)
 ]
 
@@ -286,8 +286,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'django-dynamic-fields Documentation',
-     author, 'django-dynamic-fields', 'One line description of project.',
+    (master_doc, 'Facond Documentation',
+     author, 'Facond', 'Form/Action/Condition.',
      'Miscellaneous'),
 ]
 
