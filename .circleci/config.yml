@@ -22,7 +22,7 @@ jobs:
         - qa-dependencies-{{ checksum "tox.ini" }}
     - run:
         name: tox environment setup
-        command: sudo apt install -y python-tox && sudo npm install -g jsdoc && ~/.local/bin/tox -r -e docs --notest
+        command: sudo apt install -y python-tox && sudo npm install -g jsdoc && tox -r -e docs --notest
     - save_cache:
         paths: [~/.cache/pip]
         key: qa-dependencies-{{ checksum "tox.ini" }}
