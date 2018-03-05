@@ -98,23 +98,23 @@ jobs:
     - checkout
     - run:
         name: RUN yarn install
-        command: cd src/ddf; yarn install
+        command: cd src/facond; yarn install
     - run:
         name: RUN yarn run lint
-        command: cd src/ddf; yarn run lint
+        command: cd src/facond; yarn run lint
 
   js-test:
     docker:
     - image: circleci/node:8
-    working_directory: ~/repo/src/ddf
+    working_directory: ~/repo/src/facond
     steps:
     - checkout
     - run:
         name: RUN yarn install
-        command: cd src/ddf; yarn install
+        command: cd src/facond; yarn install
     - run:
         name: RUN yarn test & coverage upload
         command: |
-          cd src/ddf
+          cd src/facond
           yarn test
           ./node_modules/.bin/codecov

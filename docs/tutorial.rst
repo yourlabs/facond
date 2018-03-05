@@ -4,8 +4,8 @@ Tutorial
 What this is
 ------------
 
-This app first is the implementation of a simple pattern to modify form
-datastructures based on rules, which have actions, which have conditions.
+This app first is the implementation of a simple pattern to execute Actions on
+Forms based on Condition execution result.
 
 It is also an NPM module usable on its own, in order to make a basic reactive
 form: ``npm install django-dynamic-forms``, the name is misleading because the

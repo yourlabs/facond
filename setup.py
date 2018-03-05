@@ -7,12 +7,12 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name='django-dynamic-fields',
-    version='0.2.0',
-    description='Dynamic forms for Django',
+    name='facond',
+    version='0.3.0',
+    description='Reactive forms with actions and conditions',
     author='James Pic',
     author_email='jpic@yourlabs.org',
-    url='http://django-dynamic-form.rtfd.org',
+    url='http://facond.rtfd.org',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,
@@ -21,7 +21,7 @@ setup(
     keywords='django dynamic form',
     entry_points = {
         'console_scripts': [
-            'ddf_examples = ddf_examples.manage:main',
+            'facond = facond_examples.manage:main',
         ],
     },
     classifiers=[
