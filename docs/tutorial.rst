@@ -1,32 +1,36 @@
 Tutorial
-========
+~~~~~~~~
 
 What this is
-------------
-
-This app first is the implementation of a simple pattern to execute Actions on
-Forms based on Condition execution result.
-
-It is also an NPM module usable on its own, in order to make a basic reactive
-form: ``npm install django-dynamic-forms``, the name is misleading because the
-lib doesn't actually require Python at all.
-
-It is also a Django app usable on its own, or with the NPM module in which case
-Python will drive it with JSON object dumps, and you can define rules for
-Django forms that the JS is able to pick up where the server left it to make
-the displayed form reactive to user input.
-
-We document the JS and make it a first class citizen in this app, but if you
-are a Python developer then you just need to import the NPM module in your page
-to activate it: it will pick up the JSON object dump from the script tag left
-by ddf.FormMixin in every form element it finds: make your configuration from
-Python.
+============
 
 The pattern inside
 ------------------
 
-It lets you define a Rule per form field. Each Rule has at least one Action,
-each Action has at least one Condition.
+This app provides an implementation of a simple pattern to make dynamic forms:
+
+- a Form has a list of Action, such as RemoveChoices,
+- an Action has a list of Condition, such as ValueIs.
+
+You can use client side, server side, or both, in which case server side
+controls the client side (write only python).
+
+On the client side, it will attach to input events on the form to execute
+actions by calling Action.execute(form) which will:
+
+- call Action.apply(form) when all conditions validate on the form,
+- call Action.unapply(form) when at least one condition fails to validate.
+
+On the server side, it will call Action.execute(form) before validation which
+will:
+
+- call Action.apply(form) when all Condition validate on the form,
+- call Action.unapply(form) for each condition that has been applied, but it's
+  just to restore enough for redisplay of the form, there's no need to unapply
+  everything.
+
+Example
+-------
 
 Consider such a Linux shop which offers support and format of computers with
 Linux, and only Format for computers with Windows, they make a beautiful Web
@@ -54,58 +58,66 @@ and "Support", we don't want this to happen **or kittens will die**::
 We want to ensure this behaves properly during initial rendering,
 validation, rerendering, and of course live in the browser.
 
-For this, we define a Rule for the service field, with Action
-``RemoveChoices(['support'])`` and Condition ``ValueIs('platform',
-'windows')``.
+For this, we define an Action ``RemoveChoices('service', ['support'])`` with a
+Condition ``ValueIs('platform', 'windows')``.
 
-Pure JavaScript example
------------------------
+Getting started
+===============
 
-If we are using pure javascript, and our own server side backend ie. in PHP::
+NPM users
+---------
 
-    import * as ddf from 'django-dynamic-fields'
-    let form = new ddf.Form(
+If you are going to use Django: skip this section.
+
+If you are an NPM user and are not going to use Django::
+
+    npm install facond
+
+Then, import the lib and bind some action on a form::
+
+    import * as facond from 'facond'
+
+    let form = new facond.Form(
         document.querySelector('#your-form'),  # form HTMLElement
-        [new ddf.Rule(
-            'service', [
-            new ddf.RemoveChoices(
-                ['Support'],
-                new ddf.ValueIs('platform', 'windows')
-            )]
+        new ddf.RemoveChoices(
+            'service',
+            ['Support'],
+            new ddf.ValueIs('platform', 'windows')
         )]
     )
+
     form.bind()
 
-Django example
---------------
+Django users
+------------
 
-You can see where this is going: you can have the same Rule/Action/Condition
-datastructure on both the server and client. So if we are doing Django then we
-can use ddf.FormMixin to define our RAC structure and ddf.FormMixin will add a
-fake field and widget which will actually render as a script tag, which ddf
-will pick up automatically in JS, so you don't have to do the above JS code,
-here's how you can do it instead::
+If you are a Django user, then you don't have to deal with NPM or anything in
+JS::
 
-    from ddf import shortcuts as ddf
+    ``pip install facond``
+
+Then all you need to do is use the ``facond.FormMixin`` on a form with a
+``facond.ScriptField`` which contains the actions definitions in Python, and JS
+will be taken care of automagically as long as you render ``{{ form.media }}``
+- it has no dependency to jquery or anything else, which means it works out of
+  the box in the admin::
+
+    from facond import shortcuts as facond
     from django import forms
 
-    class TestForm(ddf.FormMixin, forms.Form):
+    class TestForm(facond.FormMixin, forms.Form):
         platform = PlatformChoiceField()
         service = ServiceChoiceField()
 
-        _ddf = dict(  # Support dict for convenience and simple cases
-            service=[
-                ddf.RemoveChoices(
-                    ['Support'],
-                    ddf.ValueIs('platform', 'Windows'),
-                )
-            ]
-        )
+        facond = facond.ScriptField([
+            facond.RemoveChoices(
+                'service',
+                ['Support'],
+                facond.ValueIs('platform', 'Windows'),
+            )
+        ])
 
-In this case, FormMixin will be able to execute the python code to improve
-input validation, and the ddf scripts can be started with just 2 words::
-
-    import 'django-dynamic-fields'
+This should just work.
 
 Important R&D ? Wasted human resource ?
 

@@ -33,7 +33,7 @@ class Action(JsDictMixin):
         """Revert apply() action."""
 
 
-class Remove(Action):
+class RemoveField(Action):
     """Remove fields from a form."""
 
     def apply(self, form):

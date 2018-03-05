@@ -16,7 +16,7 @@ import sys
 import os
 from better import better_theme_path
 
-js_source_path = '../src/ddf/'
+js_source_path = '../src/facond/'
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -26,9 +26,9 @@ sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), "_ext")))
 sys.path.insert(0, os.path.abspath('../src/'))
 sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "../test_ddf_project")))
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/facond_examples")))
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'facond_examples.settings')
 import django
 django.setup()
 # -- General configuration ------------------------------------------------

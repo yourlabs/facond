@@ -1,7 +1,8 @@
 var path = require('path')
 
+/* eslint-disable */
 module.exports = {
-  context: __dirname,
+/* eslint-enable */
   entry: {
     main: ['babel-polyfill', './index.js'],
   },

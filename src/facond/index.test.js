@@ -18,7 +18,7 @@ const formConfiguration = {
   },
   'actions': [
     {
-      'cls': 'facond.actions.Remove',
+      'cls': 'facond.actions.RemoveField',
       'field': 'title',
       'conditions': [
         {
@@ -142,8 +142,8 @@ describe('JsDictClsRegistry.get()', () => {
   test('facond.actions.Action', () => {
     expect(facond.jsRegistry.get('facond.actions.Action')).toBe(facond.actions.Action)
   })
-  test('facond.actions.Remove', () => {
-    expect(facond.jsRegistry.get('facond.actions.Remove')).toBe(facond.actions.Remove)
+  test('facond.actions.RemoveField', () => {
+    expect(facond.jsRegistry.get('facond.actions.RemoveField')).toBe(facond.actions.RemoveField)
   })
   test('facond.conditions.ValueIs', () => {
     expect(facond.jsRegistry.get('facond.conditions.ValueIs')).toBe(facond.conditions.ValueIs)

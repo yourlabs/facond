@@ -27,7 +27,7 @@ class Action {
 }
 
 // Remove a field from a form.
-class Remove extends Action {
+class RemoveField extends Action {
   // Hide the field.
   apply(form) {
     form.field(this.field).hide()
@@ -89,6 +89,6 @@ class RemoveChoices extends Action {
 
 export {
   Action,
-  Remove,
-  RemoveChoices
+  RemoveChoices,
+  RemoveField
 }

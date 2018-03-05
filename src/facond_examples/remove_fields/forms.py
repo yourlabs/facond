@@ -1,8 +1,8 @@
 """Demonstrate how to remove choices from ChoiceField."""
 
-from facond import shortcuts as facond
-
 from django import forms
+
+from facond import shortcuts as facond
 
 
 class TestForm(facond.FormMixin, forms.Form):
@@ -16,7 +16,7 @@ class TestForm(facond.FormMixin, forms.Form):
     name = forms.CharField()
 
     facond = facond.ScriptField([
-        facond.Remove(
+        facond.RemoveField(
             'title',
             facond.ValueIs('kind', 'nonprofit'),
         ),

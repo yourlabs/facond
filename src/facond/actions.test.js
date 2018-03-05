@@ -39,7 +39,7 @@ describe('Action', () => {
   })
 })
 
-describe('Remove', () => {
+describe('RemoveField', () => {
   const dom = new JSDOM(`
   <html><body><form>
     <div id="name-container">
@@ -61,7 +61,7 @@ describe('Remove', () => {
 
   test('apply()', () => {
     let field = makeField()
-    let a = new actions.Remove()
+    let a = new actions.RemoveField('name')
     a.apply(form)
     expect(field.hide.mock.calls.length).toEqual(1)
     expect(field.show.mock.calls.length).toEqual(0)
@@ -69,7 +69,7 @@ describe('Remove', () => {
 
   test('unapply()', () => {
     let field = makeField()
-    let a = new actions.Remove()
+    let a = new actions.RemoveField('name')
     a.unapply(form)
     expect(field.show.mock.calls.length).toEqual(1)
     expect(field.hide.mock.calls.length).toEqual(0)
@@ -91,7 +91,7 @@ describe('RemoveChoices', () => {
 
   let formElement = dom.window.document.querySelector('form')
   let form = new Form(formElement)
-  let a = new actions.RemoveChoices([], ['a'])
+  let a = new actions.RemoveChoices('name', [], ['a'])
 
   test('constructor()', () => {
     expect(a.choices).toEqual(['a'])

@@ -51,7 +51,7 @@ def test_js_dict():
         },
         'actions': [
             {
-                'cls': 'facond.actions.Remove',
+                'cls': 'facond.actions.RemoveField',
                 'field': 'title',
                 'conditions': [
                     {

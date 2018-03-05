@@ -2,4 +2,4 @@ sphinx
 sphinx-js
 sphinx-better-theme
 django
--r ../src/ddf_examples/requirements.txt
+-r ../src/facond_examples/requirements.txt

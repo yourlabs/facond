@@ -2,7 +2,7 @@
 
 
 class JsDictMixin(object):
-    """Make dicts to export in JSON, and use with facond.instanciate() in JS."""
+    """Make dicts to export in JSON, and facond.instanciate() in JS."""
 
     @property
     def js_class(self):

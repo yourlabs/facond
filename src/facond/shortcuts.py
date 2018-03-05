@@ -3,8 +3,8 @@
 
 from .actions import (
     Action,
-    Remove,
     RemoveChoices,
+    RemoveField,
 )
 
 from .conditions import (

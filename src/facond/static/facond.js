@@ -9993,7 +9993,7 @@ var Field = function () {
     key: 'element',
     get: function get() {
       var result = this.form.element.querySelector(this.selector);
-      if (result.name === undefined) {
+      if (result === undefined || result === null || result.name === undefined) {
         throw 'element ' + this.name + ' not found in ' + this.form.element;
       }
       return result;
@@ -10727,7 +10727,7 @@ function plural(ms, n, name) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.RemoveChoices = exports.Remove = exports.Action = undefined;
+exports.RemoveField = exports.RemoveChoices = exports.Action = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -10780,16 +10780,16 @@ var Action = function () {
 // Remove a field from a form.
 
 
-var Remove = function (_Action) {
-  _inherits(Remove, _Action);
+var RemoveField = function (_Action) {
+  _inherits(RemoveField, _Action);
 
-  function Remove() {
-    _classCallCheck(this, Remove);
+  function RemoveField() {
+    _classCallCheck(this, RemoveField);
 
-    return _possibleConstructorReturn(this, (Remove.__proto__ || Object.getPrototypeOf(Remove)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (RemoveField.__proto__ || Object.getPrototypeOf(RemoveField)).apply(this, arguments));
   }
 
-  _createClass(Remove, [{
+  _createClass(RemoveField, [{
     key: 'apply',
 
     // Hide the field.
@@ -10806,7 +10806,7 @@ var Remove = function (_Action) {
     }
   }]);
 
-  return Remove;
+  return RemoveField;
 }(Action);
 
 // Remove given choices from a field.
@@ -10876,8 +10876,8 @@ var RemoveChoices = function (_Action2) {
 }(Action);
 
 exports.Action = Action;
-exports.Remove = Remove;
 exports.RemoveChoices = RemoveChoices;
+exports.RemoveField = RemoveField;
 
 /***/ }),
 /* 336 */

@@ -46,6 +46,8 @@ class FormMixin(JsDictMixin):
     js_class = 'facond.forms.Form'
 
     class Media:
+        """Load our built JS."""
+
         js = ['facond.js']
 
     def __init__(self, *args, **kwargs):

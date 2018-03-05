@@ -1,8 +1,8 @@
 """Demonstrate how to remove choices from multiple select."""
 
-from facond import shortcuts as facond
-
 from django import forms
+
+from facond import shortcuts as facond
 
 
 class TestForm(facond.FormMixin, forms.Form):

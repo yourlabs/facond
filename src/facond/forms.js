@@ -20,7 +20,7 @@ class Field {
 
   get element() {
     var result = this.form.element.querySelector(this.selector)
-    if (result.name === undefined) {
+    if (result === undefined || result === null || result.name === undefined) {
       throw 'element ' + this.name + ' not found in ' + this.form.element
     }
     return result
