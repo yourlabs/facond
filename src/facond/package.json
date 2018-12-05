@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack --watch",
-    "prepare": "webpack",
+    "prepare": "npm run snyk-protect; webpack",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,8 @@
     "babel-polyfill": "^6.26.0",
     "debug": "^3.1.0",
     "enhanced-resolve": "^4.0.0",
-    "webpack": "3"
+    "webpack": "3.11.0",
+    "snyk": "^1.114.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -48,5 +50,6 @@
       "*{js,jsx}",
       "webpack.config.js"
     ]
-  }
+  },
+  "snyk": true
 }
