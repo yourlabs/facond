@@ -38,7 +38,7 @@ class Action {
    * @param form :js:class:`Form` object to apply on.
    */
   apply(form) { // eslint-disable-line no-unused-vars
-    'not implemented'
+    console.log('not implemented')
   }
 
   /**
@@ -47,7 +47,7 @@ class Action {
    * @param form :js:class:`Form` object to unapply on.
    */
   unapply(form) { // eslint-disable-line no-unused-vars
-    'not implemented'
+    console.log('not implemented')
   }
 }
 
@@ -75,10 +75,8 @@ class RemoveField extends Action {
   }
 }
 
-/**
- * Remove given choices from a field.
- */
-class RemoveChoices extends Action {
+
+class ChoicesAction extends Action {
   /**
   * @param conditions List of :js:class:`Condition` objects
   */
@@ -92,12 +90,14 @@ class RemoveChoices extends Action {
   apply(form) {
     let field = form.field(this.field)
 
-    if (this.choices.indexOf(field).value >= 0) {
+    if (!this.validate(field.value)) {
       field.valueReset()
     }
 
     for (let i=0; i < field.element.options.length; i++) {
-      if (this.choices.indexOf(field.element.options[i].value) >= 0) {
+      if (this.validate(field.element.options[i].value)) {
+        field.element.options[i].classList.remove('facond-hide')
+      } else {
         let option = field.element.options[i]
         option.classList.add('facond-hide')
         option.selected = false
@@ -106,7 +106,7 @@ class RemoveChoices extends Action {
 
     if (!field.multiple) {
       // If selected value was removed, empty the field
-      if (this.choices.indexOf(field.value) >= 0) {
+      if (!this.validate(field.value)) {
         let empty = field.element.querySelector('option[value=""]')
         if (empty === undefined) {
           field.element.prepend('<option value=""></option>')
@@ -114,6 +114,16 @@ class RemoveChoices extends Action {
         field.value = ''
       }
     }
+  }
+}
+
+
+/**
+ * Remove given choices from a field.
+ */
+class RemoveChoices extends ChoicesAction {
+  validate(value) {
+    return this.choices.indexOf(value) < 0
   }
 
   // Show options which are not in this.choices from a field.
@@ -128,8 +138,16 @@ class RemoveChoices extends Action {
   }
 }
 
+class SetChoices extends ChoicesAction {
+  validate(value) {
+    return this.choices.indexOf(value) >= 0
+  }
+}
+
 export {
   Action,
+  ChoicesAction,
   RemoveChoices,
-  RemoveField
+  SetChoices,
+  RemoveField,
 }

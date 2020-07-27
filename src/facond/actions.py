@@ -1,8 +1,10 @@
 """
-An Action may apply reversible modifications of a django Form.
+An Action may apply reversible mutations on :doc:`Form<forms>`.
 
-It should always take a list of :py:cls:`~facond.conditions.Condition` as first
+It should always take a list of :doc:`Condition<conditions>` as first
 argument, and then whatever it's going to need to work.
+
+On the server side,
 """
 from collections import OrderedDict
 
@@ -12,9 +14,9 @@ from .js import JsDictMixin
 
 
 class Action(JsDictMixin):
-    """An action to take on a list of fields.
+    """An action with an optional list of :py:cls:`~facond.forms.Form`.
 
-    The :py:meth:`~Action.execute()` will first execute
+    The :py:meth:`~execute()` will first execute
     :py:meth:`~facond.conditions.Condition.validate()` for every of its
     conditions against the :py:cls:`~facond.forms.Form` instance it is passed.
     """
@@ -52,11 +54,9 @@ class RemoveField(Action):
 
     def apply(self, form):
         """Remove the field and data from field.form."""
+        form[self.field].extra_css_classes = 'facond-hide'
         self.original_keys = list(form.fields.keys())
         self.original_field = form.fields.pop(self.field)
-        attr = self.original_field.widget.attrs.get('class', '')
-        attr += ' facond-hide'
-        self.original_field.widget.attrs['class'] = attr
 
     def unapply(self, form):
         """Restore the field and data in field.form."""
@@ -72,14 +72,12 @@ class RemoveField(Action):
         form.fields = fields
 
 
-class RemoveChoices(Action):
-    """Remove choices from a choice field."""
-
+class ChoicesAction(Action):
     js_attrs = ['field', 'choices', 'conditions']
 
     def __init__(self, conditions, field, choices):
         """List of choice values to remove if conditions pass."""
-        super(RemoveChoices, self).__init__(conditions)
+        super().__init__(conditions)
         self.field = field
         self.choices = choices
 
@@ -90,9 +88,23 @@ class RemoveChoices(Action):
             values = [values]
 
         for value in values:
-            if value in self.choices:
+            if not self.validate(value):
                 raise forms.ValidationError(
                     form.fields[self.field].error_messages['invalid_choice'],
                     code='invalid_choice',
                     params={'value': value},
                 )
+
+
+class RemoveChoices(ChoicesAction):
+    """Remove choices from a choice field."""
+
+    def validate(self, value):
+        return value not in self.choices
+
+
+class SetChoices(ChoicesAction):
+    """Remove choices from a choice field."""
+
+    def validate(self, value):
+        return value in self.choices

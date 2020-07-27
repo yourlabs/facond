@@ -137,12 +137,11 @@ class Form {
     if (formElement !== undefined) this.element = formElement
     let update = this.update.bind(this)
     this.element.addEventListener('input', update)
-    this.element.addEventListener('change', update)
   }
 
   // Update the UI.
   update() {
-    log('[Form] ', this, '.update()')
+    console.log('[Form] ', this, '.update()')
 
     for (var i=0; i<this.actions.length; i++) {
       this.actions[i].execute(this)

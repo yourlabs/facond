@@ -31,8 +31,8 @@ before validation which will:
   :py:meth:`Condition.validate(form)<facond.conditions.Condition.validate>`
   return True,
 - call :py:meth:`Action.unapply(form)<facond.actions.Action.unapply>` for each
-  condition that has been applied, but it's just to restore enough for
-  redisplay of the form, there's no need to unapply everything.
+  Action which has been applied, because unapply on the server side should
+  prepare for display.
 
 Example
 -------
@@ -78,7 +78,9 @@ If you are an NPM user and are not going to use Django::
 
     npm install facond
 
-Then, import the lib and bind some action on a form::
+Then, import the lib and bind some action on a form:
+
+.. code-block:: javascript
 
     import * as facond from 'facond'
 
@@ -101,18 +103,25 @@ JS::
 
     pip install facond
 
+And add ``facond`` to your ``settings.INSTALLED_APPS`` so that its staticfiles
+will load.
+
 Then all you need to do is use the ``facond.Form`` with ``facond_actions`` for
 list of :py:class:`~facond.actions.Action` in Python, and JS will be taken care
 of automagically as long as you render ``{{ form.media }}`` - it has no
 dependency to jquery or anything else, which means it works out of the box in
-the admin, even after Django 2.0::
+the admin, even after Django 2.0:
+
+.. code-block:: python
 
     from facond import shortcuts as facond
-    from django import forms class TestForm(facond.Form, forms.Form):
+    from django import forms
+
+    class TestForm(facond.Form, forms.Form):
         platform = PlatformChoiceField()
         service = ServiceChoiceField()
 
-        facond = [
+        facond_actions = [
             facond.RemoveChoices(
                 [facond.ValueEqual('platform', 'Windows')],
                 'service',

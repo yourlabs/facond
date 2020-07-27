@@ -3,7 +3,9 @@
 
 from .actions import (
     Action,
+    ChoicesAction,
     RemoveChoices,
+    SetChoices,
     RemoveField,
 )
 

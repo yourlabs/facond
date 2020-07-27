@@ -35,8 +35,25 @@ Python
 .. autoclass:: facond.actions.RemoveChoices
    :members:
 
-RemoveField
+.. _setchoices:
+
+SetChoices
 =============
+
+JavaScript
+----------
+
+.. js:autoclass:: SetChoices
+   :members:
+
+Python
+------
+
+.. autoclass:: facond.actions.SetChoices
+   :members:
+
+RemoveField
+===========
 
 JavaScript
 ----------
