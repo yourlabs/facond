@@ -2,3 +2,4 @@ sphinx
 sphinx-js
 django
 -r ../src/facond_examples/requirements.txt
+requests>=2.32.0 # not directly required, pinned by Snyk to avoid a vulnerability
